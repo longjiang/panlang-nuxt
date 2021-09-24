@@ -120,7 +120,6 @@ export default {
   .logo-text * {
     font-family: "Helvetica Neue", Helvetica, sans-serif !important;
     text-align: left;
-    margin-bottom: -0.4rem;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
   }
   .logo-speech-bubble {
@@ -147,7 +146,6 @@ export default {
   }
   .logo-text-language {
     font-weight: bold;
-    margin-bottom: -0.2em;
     text-transform: uppercase;
     line-height: 1;
     font-size: 1.2em;
