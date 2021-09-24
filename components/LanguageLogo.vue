@@ -41,6 +41,7 @@
             src="/img/logo-panlingo-white.svg"
             alt="PanLingo"
             class="logo-text-panlingo-logo"
+            data-not-lazy
           />
           <div class="logo-text-language">
             {{ l2Name }}
