@@ -9,9 +9,9 @@
       <div class="row">
         <div class="col-sm-12">
           <Annotate>
-            <h3>بيا بايد بزاريم هوفبرگ بره داخل نيازي نيست متوجه ما بشه</h3>
+            <h3>ಬಿಸಿಯುಸಿರನ್ನು ನೀ ಬಗೆದು</h3>
           </Annotate>
-          <a :href="href" download="tihudictBIG-and-wiktionary-merged.csv.txt">Download CSV</a>
+          <h3>ಬಿಸಿಯುಸಿರನ್ನು ನೀ ಬಗೆದು</h3>
         </div>
       </div>
     </div>
@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Config from '@/lib/config'
-import Helper from '@/lib/helper'
+import Config from "@/lib/config";
+import Helper from "@/lib/helper";
 export default {
   computed: {
     $l1() {
@@ -40,17 +40,19 @@ export default {
       href: undefined,
     };
   },
-  async mounted() {
-    let res = await axios.get(`${Config.server}data/persian-g2p/tihudictBIG-and-wiktionary-merged.csv.txt`)
-    let parsed = Papa.parse(res.data, {header: true})
-    let rows = parsed.data
-    console.log(rows.length)
-    rows = Helper.uniqueByValue(rows, 'persian')
-    console.log(rows.length)
-    let csv = Papa.unparse(rows);
-    this.href = Helper.makeTextFile(csv);
-  },
   methods: {
+    async persianRomanizationCSV() {
+      let res = await axios.get(
+        `${Config.server}data/persian-g2p/tihudictBIG-and-wiktionary-merged.csv.txt`
+      );
+      let parsed = Papa.parse(res.data, { header: true });
+      let rows = parsed.data;
+      console.log(rows.length);
+      rows = Helper.uniqueByValue(rows, "persian");
+      console.log(rows.length);
+      let csv = Papa.unparse(rows);
+      this.href = Helper.makeTextFile(csv);
+    },
     async dictionarySize() {
       let dictionary = await this.$getDictionary();
       let size = await (await dictionary).getSize();
