@@ -311,6 +311,8 @@ export default {
 
 .youtube-view-line-list .youtube-view-line-list-item {
   padding: 0.2rem 0.7rem;
+  color: #666;
+  text-align: left;
 }
 
 .youtube-view-line-list-item {
