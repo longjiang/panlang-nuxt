@@ -343,7 +343,7 @@ export default {
     menu() {
       let items = [
         {
-          icon: "fas fa-air-freshener",
+          icon: "fas fa-bell",
           title: "What’s New",
           show: true,
           children: [
