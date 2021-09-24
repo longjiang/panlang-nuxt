@@ -21,7 +21,7 @@
         <div class="row pt-5 mb-5">
           <div class="col-sm-12">
             <div class="z2h-logo" style="line-height: 1.2">
-              <strong style="font-size: 3rem">PanLingo</strong>
+              <img src="/img/logo-panlingo-white.svg" alt="PanLingo" style="width: 17rem">
               <div class="mt-3" style="font-weight: 300; font-size: 1.6rem">
                 Learn all languages of the world. Fully open-source.
               </div>
