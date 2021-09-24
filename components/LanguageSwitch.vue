@@ -8,7 +8,7 @@
       :defaultURL="(text) => `/en/${text}/`"
       :random="random ? random : false"
       @nav="onNav"
-      placeholder="Search by language name or code..."
+      :placeholder="`Search all ${this.languages ? this.languages.length : ''} languages by name or code...`"
       ref="l1"
       type="generic"
     />

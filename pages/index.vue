@@ -28,19 +28,6 @@
             </div>
           </div>
         </div>
-        <!-- <Sale class="mb-5" style="border-radius: 1rem !important" /> -->
-        <client-only>
-          <div :class="{ 'row mb-5': true, 'd-none': !hasDashboard }">
-            <div class="col-sm-12">
-              <div class="home-card mb-0" style="padding: 1rem">
-                <LazyDashboard
-                  @hasDashboard="hasDashboardUpdate"
-                  style="padding-top: 0.5rem"
-                />
-              </div>
-            </div>
-          </div>
-        </client-only>
         <div class="row" v-if="!hasDashboard">
           <div class="col-sm-12">
             <div class="intro-text mb-5 text-center">
@@ -79,170 +66,8 @@
         </div>
         <div class="row">
           <div class="col-sm-6 mb-5">
-            <div class="home-card">
-              <router-link to="/en/zh">
-                <img
-                  src="/img/czh-logo-dark.png"
-                  class="czh-logo"
-                  data-not-lazy
-                />
-              </router-link>
-              <hr />
-              <ul class="czh-links">
-                <li>
-                  <router-link
-                    to="/en/zh/online-courses"
-                    style="color: #fd4f1c; font-weight: bold"
-                  >
-                    HSK Courses
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/dictionary">
-                    Chinese Dictionary
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/phrasebooks">
-                    Chinese Phrasebooks
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/grammar">Chinese Grammar</router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/live-tv">Live Chinese TV</router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/tv-shows">
-                    Chinese TV Shows
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/reader">Reading Tools</router-link>
-                </li>
-                <li>
-                  <router-link to="/en/zh/resource/list/all/all">
-                    Chinese Resources
-                  </router-link>
-                </li>
-              </ul>
-              <hr />
-              <div
-                class="home-card-logos text-center"
-                style="line-height: 2rem"
-              >
-                <a
-                  href="https://www.youtube.com/channel/UCQ3IlLg5VGeydxtswBoyt6A"
-                >
-                  <img
-                    src="/img/logo-youtube.png"
-                    style="height: 1.2rem; padding: 0 0.5rem"
-                  />
-                </a>
-                <a href="https://www.instagram.com/chinesezerotohero/">
-                  <img
-                    src="/img/logo-instagram.png"
-                    style="height: 1.4rem; padding: 0 0.5rem"
-                  />
-                </a>
-                <a href="http://chinesezerotohero.teachable.com/">
-                  <img
-                    src="/img/logo-teachable.png"
-                    style="height: 1.4rem; padding: 0 0.5rem"
-                  />
-                </a>
-                <a href="http://t.me/zerotohero_zh">
-                  <img
-                    src="/img/logo-telegram.png"
-                    style="height: 1.4rem; padding: 0 0.5rem"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 mb-5">
-            <div class="home-card">
-              <router-link to="/zh/en">
-                <img
-                  src="/img/ezh-logo-dark.png"
-                  class="ezh-logo"
-                  data-not-lazy
-                />
-              </router-link>
-              <hr />
-              <ul class="ezh-links">
-                <li>
-                  <router-link
-                    to="/zh/en/online-courses"
-                    style="color: #1b3e76; font-weight: bold"
-                  >
-                    剑桥英语视频教程
-                  </router-link>
-                </li>
-                <li>
-                  <router-link
-                    to="/zh/en/online-courses"
-                    style="color: #1b3e76; font-weight: bold"
-                  >
-                    美式口语课程
-                  </router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/dictionary">英语词典工具</router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/phrasebooks">英语短语集</router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/live-tv">英语电视直播</router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/tv-shows">英语电视节目</router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/reader">英语阅读工具</router-link>
-                </li>
-                <li>
-                  <router-link to="/zh/en/resource/list/all/all">
-                    其它英语资源
-                  </router-link>
-                </li>
-              </ul>
-              <hr />
-              <div
-                class="home-card-logos text-center"
-                style="line-height: 2rem"
-              >
-                <a href="https://m.cctalk.com/inst/stevmab3">
-                  <img src="/img/logo-cctalk.png" style="height: 1.2rem" />
-                </a>
-                &nbsp;&nbsp;
-                <a href="https://space.bilibili.com/253569339">
-                  <img src="/img/logo-bilibili.png" style="height: 1.2rem" />
-                </a>
-                &nbsp;&nbsp;
-                <a href="https://v.douyin.com/eNJCcD8/">
-                  <img src="/img/logo-douyin.png" style="height: 1.4rem" />
-                </a>
-                &nbsp;&nbsp;
-                <a
-                  href="https://www.xiaohongshu.com/user/profile/5fad77c0000000000100696e"
-                >
-                  <img src="/img/logo-xiaohongshu.png" style="height: 1.4rem" />
-                </a>
-                &nbsp;&nbsp;
-                <a href="/zh/en/contact-us">
-                  <img src="/img/logo-wechat.png" style="height: 1.4rem" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6 mb-5">
             <div class="home-card text-center">
-              <h5 class="mb-3">Map of Languages</h5>
+              <h5 class="mb-3">Choose Languages from A Map</h5>
               <router-link to="/language-map">
                 <div>
                   <img
@@ -256,12 +81,12 @@
           </div>
           <div class="col-sm-6 mb-5">
             <div class="home-card text-center">
-              <h5 class="mb-3">Compare Phrases Across Languages</h5>
-              <router-link to="/compare-languages">
+              <h5 class="mb-3">Choose Languages from A List</h5>
+              <router-link to="/language-icons">
                 <div>
                   <img
-                    src="/img/thumbnail-compare-languages.jpg"
-                    alt="Compare phrases across languages on a map"
+                    src="/img/thumbnail-language-icons.jpg"
+                    alt="Faces of Languages"
                     class="rounded shadow img-fluid"
                   />
                 </div>
@@ -272,12 +97,12 @@
         <div class="row">
           <div class="col-sm-6 mb-5">
             <div class="home-card text-center">
-              <h5 class="mb-3">Faces of Languages</h5>
-              <router-link to="/language-icons">
+              <h5 class="mb-3">Compare Phrases Across Languages</h5>
+              <router-link to="/compare-languages">
                 <div>
                   <img
-                    src="/img/thumbnail-language-icons.jpg"
-                    alt="Faces of Languages"
+                    src="/img/thumbnail-compare-languages.jpg"
+                    alt="Compare phrases across languages on a map"
                     class="rounded shadow img-fluid"
                   />
                 </div>
@@ -302,7 +127,11 @@
         <div class="row mb-5">
           <div class="col-sm-12">
             <div class="home-card">
-              <h5 class="text-center">More Languages</h5>
+              <h5 class="text-center">
+                All {{ $languages.l1s.length }} Languages
+              </h5>
+              <LanguageSwitch class="mt-3" />
+              <h6 class="text-center mt-4">Some Popular Languages</h6>
               <LanguageList
                 :codes="[
                   'ar',
@@ -368,10 +197,22 @@
             </div>
           </div>
         </div>
-        <div class="home-card mb-5">
-          <h5 class="text-center">All {{ $languages.l1s.length }} Languages</h5>
-          <Choose :compact="true" />
-        </div>
+        <client-only>
+          <div :class="{ 'row mb-5': true, 'd-none': !hasDashboard }">
+            <div class="col-sm-12">
+              <div class="home-card mb-0" style="padding: 1rem">
+                <h5 class="mt-3 text-center">Continue Where You Left Off</h5>
+                <p class="mb-3 text-center">
+                  Your data is stored in your browser, not on our server.
+                </p>
+                <LazyDashboard
+                  @hasDashboard="hasDashboardUpdate"
+                  style="padding-top: 0.5rem"
+                />
+              </div>
+            </div>
+          </div>
+        </client-only>
         <div class="row mb-5">
           <div class="col-sm-12">
             <div class="home-card">
