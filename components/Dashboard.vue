@@ -69,6 +69,41 @@
             </router-link>
           </div>
         </div>
+        <div class="col-12 text-center mt-4">
+          <button
+            :class="`btn btn-ghost-dark btn-sm ml-1 ${
+              skin === 'light' ? 'text-secondary' : ''
+            }`"
+            v-if="!showExportButtons"
+            @click="showExportButtons = true"
+          >
+            Export Saved Words &amp; Phrases
+          </button>
+          <template v-if="showExportButtons">
+            <a
+              :href="wordsCSVHref"
+              :download="`saved-words${l2 ? '-' + l2.code : ''}-${hostname}.csv`"
+              v-if="savedWordsSorted && savedWordsSorted.length > 0 && wordsCSVHref"
+              :class="`btn btn-ghost-dark btn-sm ml-1 ${
+                skin === 'light' ? 'text-secondary' : ''
+              }`"
+            >
+              <i class="fa fa-download"></i>
+              Saved Words
+            </a>
+            <a
+              :href="savedPhrasesSorted && savedPhrasesSorted.length > 0 && phrasesCSVHref"
+              :download="`saved-phrases${l2 ? '-' + l2.code : ''}-${hostname}.csv`"
+              v-if="phrasesCSVHref"
+              :class="`btn btn-ghost-dark btn-sm ml-1 ${
+                skin === 'light' ? 'text-secondary' : ''
+              }`"
+            >
+              <i class="fa fa-download"></i>
+              Saved Phrases
+            </a>
+          </template>
+        </div>
       </div>
       <div class="history-items row" v-if="itemsFiltered.length > 0">
         <div
@@ -122,11 +157,11 @@
       </div>
       <div class="row">
         <div
-          class="col-12 text-center"
+          class="col-12 text-center mb-2"
           v-if="videosFiltered && videosFiltered.length > 0"
         >
           <button
-            :class="`btn btn-ghost-dark btn-sm ml-0 mb-2 ${
+            :class="`btn btn-ghost-dark btn-sm ml-0 ${
               skin === 'light' ? 'text-secondary' : ''
             }`"
             @click.stop.prevent="$store.dispatch('history/removeAll')"
@@ -142,6 +177,7 @@
 <script>
 import { ContainerQuery } from "vue-container-query";
 import { mapState } from "vuex";
+import Helper from "@/lib/helper";
 
 export default {
   components: {
@@ -150,6 +186,9 @@ export default {
   data() {
     return {
       params: {},
+      showExportButtons: false,
+      phrasesCSVHref: undefined,
+      wordsCSVHref: undefined,
       query: {
         xs: {
           minWidth: 0,
@@ -189,6 +228,10 @@ export default {
     ...mapState("history", ["history"]),
     ...mapState("savedWords", ["savedWords"]),
     ...mapState("savedPhrases", ["savedPhrases"]),
+    hostname() {
+      if (window) return window.location.hostname;
+      else return "";
+    },
     savedWordsSorted() {
       let savedWordsSorted = [];
       for (let l2 in this.savedWords) {
@@ -262,8 +305,42 @@ export default {
     savedWords() {
       this.emitHasDashboard();
     },
+    showExportButtons() {
+      if (this.showExportButtons) {
+        this.genCSV();
+      }
+    },
   },
   methods: {
+    genCSV() {
+      let words = [];
+      if (this.savedWordsSorted) {
+        for (let savedWordsLang of this.savedWordsSorted) {
+          let ws = savedWordsLang.words.map((w) => {
+            let op = Object.assign({}, w);
+            if (!this.l2) op.l2 = savedWordsLang.l2.code;
+            return op;
+          });
+          words = words.concat(ws);
+        }
+      }
+      let wordsCSV = Papa.unparse(words);
+      this.wordsCSVHref = Helper.makeTextFile(wordsCSV);
+      let phrases = [];
+      if (this.savedPhrasesSorted) {
+        for (let savedPhrasesLang of this.savedPhrasesSorted) {
+          let ps = savedPhrasesLang.phrases.map((w) => {
+            let op = Object.assign({}, w);
+            if (!this.l2) op.l2 = savedPhrasesLang.l2.code;
+            delete op.exact;
+            return op;
+          });
+          phrases = phrases.concat(ps);
+        }
+      }
+      let phrasesCSV = Papa.unparse(phrases);
+      this.phrasesCSVHref = Helper.makeTextFile(phrasesCSV);
+    },
     emitHasDashboard() {
       let hasDashboard = false;
       if (this.savedWordsSorted && this.savedWordsSorted.length > 0)
