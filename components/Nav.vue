@@ -13,11 +13,13 @@
     <div class="site-top-bar" v-if="variant === 'menu-bar'">
       <div class="text-center">
         <router-link to="/" class="link-unstyled">
-          <img
+          <i class="fa fa-chevron-left mr-1"></i>
+          All Languages
+          <!-- <img
             src="/img/logo-panlingo-white.svg"
             alt="PanLingo"
             class="site-top-bar-logo"
-          />
+          /> -->
         </router-link>
       </div>
       <div>
@@ -63,11 +65,13 @@
           >
             <div class="site-top-bar" v-if="variant === 'side-bar'">
               <router-link to="/" class="link-unstyled">
-                <img
+                <i class="fa fa-chevron-left mr-1"></i>
+                All Languages
+                <!-- <img
                   src="/img/logo-panlingo-white.svg"
                   alt="PanLingo"
                   class="site-top-bar-logo"
-                />
+                /> -->
               </router-link>
               <router-link :to="languageMapPath" class="link-unstyled">
                 <i class="fas fa-globe-asia"></i>
@@ -1090,7 +1094,7 @@ export default {
   padding: 0.25rem 1rem;
   a {
     color: white;
-    opacity: 0.8;
+    opacity: 0.7;
     line-height: 2.3rem;
     .site-top-bar-logo {
       display: inline-block;

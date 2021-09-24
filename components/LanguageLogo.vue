@@ -36,6 +36,12 @@
             </span>
             <span v-else>&nbsp;</span>
           </div> -->
+
+          <img
+            src="/img/logo-panlingo-white.svg"
+            alt="PanLingo"
+            class="logo-text-panlingo-logo"
+          />
           <div class="logo-text-language">
             {{ l2Name }}
           </div>
@@ -134,11 +140,16 @@ export default {
     position: relative;
     bottom: 0.1em;
   }
+  .logo-text-panlingo-logo {
+    margin-bottom: 0.25rem;
+    margin-left: 0.1rem;
+    width: 5rem;
+  }
   .logo-text-language {
     font-weight: bold;
     margin-bottom: -0.2em;
     text-transform: uppercase;
-    line-height: 1.15;
+    line-height: 1;
     font-size: 1.2em;
   }
   .logo-text-zth {
