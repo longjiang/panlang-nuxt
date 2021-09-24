@@ -32,16 +32,16 @@
                 style="display: inline-block; height: 1.3rem"
               />
             </router-link>
-            <Loader
+            <!-- <Loader
               :sticky="true"
               message="Loading common phrases"
               v-if="updating"
-            />
+            /> -->
             <div v-if="updating">
               &nbsp;
               <!-- spacer dummy -->
             </div>
-            <div style="flex: 1; margin-left: 1rem; position: relative">
+            <div style="flex: 1; margin-left: 1rem; position: relative" v-if="!updating">
               <span class="title-languages" v-if="langs">
                 {{ langs.length }} languages
               </span>
