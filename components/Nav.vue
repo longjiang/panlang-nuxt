@@ -13,8 +13,11 @@
     <div class="site-top-bar" v-if="variant === 'menu-bar'">
       <div class="text-center">
         <router-link to="/" class="link-unstyled">
-          <i class="fa fa-chevron-left mr-2"></i>
-          All Languages
+          <img
+            src="/img/logo-panlingo-white.svg"
+            alt="PanLingo"
+            class="site-top-bar-logo"
+          />
         </router-link>
       </div>
       <div>
@@ -60,18 +63,17 @@
           >
             <div class="site-top-bar" v-if="variant === 'side-bar'">
               <router-link to="/" class="link-unstyled">
-                <i class="fas fa-chevron-left mr-2"></i>
-                All languages
+                <img
+                  src="/img/logo-panlingo-white.svg"
+                  alt="PanLingo"
+                  class="site-top-bar-logo"
+                />
               </router-link>
               <router-link :to="languageMapPath" class="link-unstyled">
                 <i class="fas fa-globe-asia"></i>
               </router-link>
             </div>
-            <LanguageLogo
-              :l1="l1"
-              :l2="l2"
-              style="margin: 1.5rem 0"
-            />
+            <LanguageLogo :l1="l1" :l2="l2" style="margin: 1.5rem 0" />
           </div>
           <div
             :class="{ 'main-nav-items': true, tabs: variant === 'menu-bar' }"
@@ -96,10 +98,7 @@
             </NuxtLink>
           </div>
           <div v-if="variant === 'side-bar'" class="end-nav">
-            <div
-              v-if="$l2 && $l2.logo"
-              class="icon-description"
-            >
+            <div v-if="$l2 && $l2.logo" class="icon-description">
               <b>ICON IMAGE:</b>
               <span v-if="$l2.logoDesc">
                 {{ $l2.logoDesc.replace(/\s/g, " ") }},
@@ -296,11 +295,7 @@ export default {
         let historyMatches = this.fullHistory.filter((path) => {
           if (path) {
             let r = this.$router.resolve(path);
-            return (
-              r &&
-              r.route &&
-              ["language-map"].includes(r.route.name)
-            );
+            return r && r.route && ["language-map"].includes(r.route.name);
           }
         });
         let path = historyMatches.pop();
@@ -1094,10 +1089,17 @@ export default {
   position: absolute;
   padding: 0.25rem 1rem;
   a {
-    color: #ccc;
+    color: white;
+    opacity: 0.8;
     line-height: 2.3rem;
+    .site-top-bar-logo {
+      display: inline-block;
+      height: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
     &:hover {
       color: white;
+      opacity: 1;
     }
   }
   .btn {
@@ -1151,10 +1153,11 @@ export default {
       .logo,
       .logo-constructed {
         transform: scale(0.9);
+        margin-left: 0.4rem;
       }
       .site-top-bar {
         margin-left: -1rem;
-        padding-left: 1.5rem;
+        padding-left: 1rem;
         margin-top: -2.6rem;
       }
       padding-top: 2.6rem;

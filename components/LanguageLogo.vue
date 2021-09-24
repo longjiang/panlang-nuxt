@@ -26,7 +26,7 @@
       </div>
       <div class="logo-text text-white">
         <template>
-          <div class="logo-text-zth">
+          <!-- <div class="logo-text-zth">
             <span v-if="!compact">
               {{
                 l1.translations && l1.translations["PanLingo"]
@@ -35,7 +35,7 @@
               }}
             </span>
             <span v-else>&nbsp;</span>
-          </div>
+          </div> -->
           <div class="logo-text-language">
             {{ l2Name }}
           </div>

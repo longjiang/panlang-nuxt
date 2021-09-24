@@ -25,8 +25,15 @@
             style="width: 100%; justify-content: space-between"
           >
             <router-link to="/" class="link-unstyled d-block">
-              <i class="fa fa-chevron-left mr-2"></i>
-              PanLingo
+              <img
+                src="/img/logo-panlingo-white.svg"
+                alt="PanLingo"
+                class="site-top-bar-logo"
+                style="
+                  display: inline-block;
+                  height: 1.3rem;
+                "
+              />
             </router-link>
             <router-link
               to="/language-map"
@@ -122,12 +129,14 @@
       </div>
     </div>
     <footer class="bg-dark mt-5 p-5" style="z-index: -1">
-      <div
-        class="text-center"
-        style="line-height: 1.2; font-size: 1.1em"
-      >
+      <div class="text-center" style="line-height: 1.2; font-size: 1.1em">
         <router-link class="link-unstyled text-white" to="/">
-          <strong>PanLingo</strong>
+          <img
+            src="/img/logo-panlingo-white.svg"
+            alt="PanLingo"
+            class="site-top-bar-logo"
+            style="display: inline-block; height: 1.3rem"
+          />
         </router-link>
       </div>
     </footer>

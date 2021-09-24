@@ -25,8 +25,12 @@
             style="width: 100%; justify-content: space-between"
           >
             <router-link to="/" class="link-unstyled">
-              <i class="fa fa-chevron-left mr-2"></i>
-              <span class="home-text">Home</span>
+              <img
+                src="/img/logo-panlingo-white.svg"
+                alt="PanLingo"
+                class="site-top-bar-logo"
+                style="display: inline-block; height: 1.3rem"
+              />
             </router-link>
             <Loader
               :sticky="true"

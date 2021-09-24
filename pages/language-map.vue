@@ -22,8 +22,15 @@
         <div class="col-sm-12 d-flex" style="overflow: visible">
           <div class="mr-3 d-flex align-items-center">
             <router-link to="/" class="link-unstyled">
-              <i class="fa fa-chevron-left mr-2"></i>
-              Home
+              <img
+                src="/img/logo-panlingo-white.svg"
+                alt="PanLingo"
+                class="site-top-bar-logo"
+                style="
+                  display: inline-block;
+                  height: 1.3rem;
+                "
+              />
             </router-link>
           </div>
           <LanguageSwitch
@@ -37,7 +44,10 @@
       <div class="row">
         <div class="col-12" style="height: calc(100vh - 54px); padding: 0">
           <div class="loader-wrapper" v-if="loadingMap">
-            <Loader :sticky="true" message="Loading map, and plotting thousands of languages..." />
+            <Loader
+              :sticky="true"
+              message="Loading map, and plotting thousands of languages..."
+            />
           </div>
           <client-only v-if="filteredLangsWithGeo">
             <LanguageMap
@@ -54,13 +64,13 @@
 </template>
 
 <script>
-import Helper from '@/lib/helper'
+import Helper from "@/lib/helper";
 export default {
   data() {
     return {
       loadingMap: true,
       filteredLangsWithGeo: undefined,
-      filteredLangs: undefined
+      filteredLangs: undefined,
     };
   },
   /**
@@ -80,9 +90,9 @@ export default {
     },
   },
   async mounted() {
-    await Helper.timeout(100)
-    this.filteredLangs = this.getFilteredLangs()
-    this.filteredLangsWithGeo = this.getFilteredLangsWithGeo()
+    await Helper.timeout(100);
+    this.filteredLangs = this.getFilteredLangs();
+    this.filteredLangsWithGeo = this.getFilteredLangsWithGeo();
   },
   methods: {
     onReady() {
@@ -91,9 +101,13 @@ export default {
     getFilteredLangs() {
       let languages = this.$languages.l1s;
       languages = languages.filter((l) => {
-        if (["hbo", "enm", "arc", "grc", "sjn", "ang", "non"].includes(l["iso639-3"]))
+        if (
+          ["hbo", "enm", "arc", "grc", "sjn", "ang", "non"].includes(
+            l["iso639-3"]
+          )
+        )
           return true;
-        if (l["iso639-3"] === 'cmn') return false; // Mandarin overlaps Chinese, which is annoying
+        if (l["iso639-3"] === "cmn") return false; // Mandarin overlaps Chinese, which is annoying
         if (l.han) return true; // Show all Han languages
         if (l.name.includes("Sign Language")) return false;
         if (
