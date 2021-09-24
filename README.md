@@ -1,4 +1,12 @@
-# zerotohero-nuxt
+# PanLang
+
+
+
+有一些志愿参与该项目，请加我 Telegram @jon_zerotohero
+
+If you want to contribute to this project，please let me know on Telegram @jon_zerotohero
+
+The project is built with [Vue.js](https://vuejs.org/) and [Nuxt.js](https://nuxtjs.org).
 
 ## Build Setup
 
