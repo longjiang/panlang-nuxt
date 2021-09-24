@@ -241,7 +241,7 @@ export default {
       if (this.aImages.length > 0 || this.bImages.length > 0) {
         return this.bImages.length > 0 ? this.bImages[0].src : this.aImages[0].src;
       } else {
-        return "/img/zth-share-image.jpg";
+        return "/img/panlingo-share-image.jpg";
       }
     },
   },

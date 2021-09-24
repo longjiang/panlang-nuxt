@@ -135,15 +135,17 @@ export default {
     bottom: 0.1em;
   }
   .logo-text-language {
-    font-weight: 200;
-    letter-spacing: 0.1em;
+    font-weight: bold;
     margin-bottom: -0.2em;
     text-transform: uppercase;
     line-height: 1.15;
+    font-size: 1.2em;
   }
   .logo-text-zth {
-    font-weight: bold;
     text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 400;
+    margin-bottom: -0.2rem;
   }
 }
 </style>

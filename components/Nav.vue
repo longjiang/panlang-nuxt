@@ -97,7 +97,7 @@
           </div>
           <div v-if="variant === 'side-bar'" class="end-nav">
             <div
-              v-if="$l2 && !['en', 'zh'].includes($l2.code) && $l2.logo"
+              v-if="$l2 && $l2.logo"
               class="icon-description"
             >
               <b>ICON IMAGE:</b>
@@ -343,61 +343,6 @@ export default {
     },
     menu() {
       let items = [
-        {
-          icon: "fas fa-graduation-cap",
-          title: "Courses",
-          show: this.hasFeature("courses"),
-          children: [
-            {
-              name: "courses",
-              title: "Courses",
-              icon: "fas fa-graduation-cap",
-              show: ["zh", "en"].includes(this.l2.code),
-            },
-            {
-              href: "https://chinesezerotohero.teachable.com/",
-              title: "Course Directory",
-              icon: "fa fa-folder-open",
-              show: ["zh"].includes(this.l2.code),
-            },
-            {
-              name: "hall-of-heroes",
-              icon: "fa fa-trophy",
-              title: "Heroes",
-              show: this.l1.code === "en" && this.l2.code === "zh",
-            },
-            {
-              name: "textbooks-workbooks",
-              title: "Textbooks",
-              icon: "fas fa-book",
-              show: ["zh", "en"].includes(this.l2.code),
-            },
-            {
-              name: "video-count",
-              title: "Video Count",
-              icon: "fas fa-list-ol",
-              show: this.l2.code === "zh",
-            },
-            {
-              name: "pricing",
-              title: "Pricing",
-              icon: "fas fa-tag",
-              show: this.l2.code === "zh",
-            },
-            {
-              name: "course-release-schedule",
-              title: "Schedule",
-              icon: "fas fa-clock",
-              show: this.l2.code === "zh",
-            },
-            {
-              name: "affiliate-program",
-              icon: "fas fa-money-check-alt",
-              show: true,
-              title: "Affiliate Program",
-            },
-          ],
-        },
         {
           icon: "fas fa-air-freshener",
           title: "What’s New",

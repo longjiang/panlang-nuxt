@@ -239,7 +239,7 @@ export default {
       if (this.images.length > 0) {
         return this.images[0].src;
       } else {
-        return "/img/zth-share-image.jpg";
+        return "/img/panlingo-share-image.jpg";
       }
     },
     wide() {

@@ -114,8 +114,8 @@ export default {
     getImage() {
       if (this.image) return this.image;
       let image = Helper.background(this.$l2);
-      if (image !== "/img/backgrounds/bg-globe.jpg") return image;
-      else return "/img/zth-share-image.jpg";
+      if (image !== "/img/background-globe.jpg") return image;
+      else return "/img/panlingo-share-image.jpg";
     },
   },
 };

@@ -3,7 +3,7 @@
     <SocialHead
       v-if="article"
       :image="`${
-        article.post_hint === 'image' ? article.url : '/img/zth-share-image.jpg'
+        article.post_hint === 'image' ? article.url : '/img/panlingo-share-image.jpg'
       }`"
       :title="`Reddit Post: ${article.title} | from r/${article.subreddit} | PanLingo ${$l2.name}`"
       :description="`${

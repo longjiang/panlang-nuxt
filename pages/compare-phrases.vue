@@ -192,7 +192,7 @@ export default {
           ? this.bImages[0].src
           : this.aImages[0].src;
       } else {
-        return "/img/zth-share-image.jpg";
+        return "/img/panlingo-share-image.jpg";
       }
     },
   },

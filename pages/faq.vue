@@ -39,7 +39,7 @@
                 not infringe on copyright simply by embedding YouTube videos.
               </p>
               <p>
-                Nevertheless, the community behind zerotohero.ca wants to be on
+                Nevertheless, the community behind panlingo.org wants to be on
                 good terms with all content creators. If you wish to have your
                 content removed, you can easily do so by following the
                 instructions in the next section.
@@ -48,7 +48,7 @@
             <div class="faq-item">
               <h5>How can I prevent my videos from showing up on this site?</h5>
               <p>
-                By allowing websites like zerotohero.ca, your videos will get
+                By allowing websites like panlingo.org, your videos will get
                 views and generate ad revenue for you as if the videos are
                 viewed on YouTube. The YouTube embed player on this website also
                 recommends other videos from you channel, which can potentially
@@ -63,7 +63,7 @@
               <ol>
                 <li>
                   <b>Restrict embedding for specific websites.</b>
-                  You can blacklist certain domains (such as www.zerotohero.ca)
+                  You can blacklist certain domains (such as www.panlingo.org)
                   to prevent them from displaying your YouTube videos. For
                   instructions, see
                   <a
@@ -92,31 +92,16 @@
                   If the above two options don't work for you, you can contact
                   us to have some all of your videos "blacklisted" and never
                   again show up on this website. Please contact us via Twitter
-                  <a
-                    href="https://www.zerotohero.ca/en/ms/updates"
-                    target="_blank"
-                  >
+                  <a href="https://twitter.com/zerotoherolang">
                     @zerotoherolang
                   </a>
                   , either by direct messaging, post reply, or mention. For
                   other ways to reach us, see the
-                  <a href="https://www.zerotohero.ca/en/ms/contact-us">
-                    Contact Us
-                  </a>
+                  <router-link to="/contact-us">Contact Us</router-link>
                   page.
                 </li>
               </ol>
             </div>
-          </div>
-          <div
-            v-if="
-              ($l1.code === 'en' && $l2.code === 'zh') ||
-              ($l1.code === 'zh' && $l2.code === 'en')
-            "
-          >
-            <hr class="mt-5 mb-5" />
-            <FAQEnZh v-if="$l1.code === 'en' && $l2.code === 'zh'" />
-            <FAQZhEn v-if="$l1.code === 'zh' && $l2.code === 'en'" />
           </div>
         </div>
       </div>
