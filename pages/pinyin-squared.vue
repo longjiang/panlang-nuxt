@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/pinyin-squared',
     meta: {
-      title: 'Pinyin Squared | Zero to Hero'
+      title: 'Pinyin Squared | PanLingo Chinese'
     }
   }
 </router>

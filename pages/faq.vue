@@ -7,7 +7,7 @@
   <div class="main">
     <div class="faq container pt-5 pb-5">
       <SocialHead
-        :title="`Frequently Asked Questions | ${$l2.name} Zero to Hero`"
+        :title="`Frequently Asked Questions | PanLingo ${$l2.name}`"
       />
       <div class="row">
         <div class="col-sm-12">
@@ -16,19 +16,12 @@
             <div class="faq-item">
               <h5>Who are you?</h5>
               <p>
-                zerotohero.ca is an open-source (see
+                PanLingo is an open-source (see
                 <a href="https://github.com/longjiang/zerotohero-nuxt">
                   GitHub repo
                 </a>
                 ), non-profit, community-driven platform to help people learn
                 all languages around the world.
-              </p>
-              <p>
-                At the moment, the website has promotional content for various
-                language-learning product such as Chinese Zero to Hero, Enlgish
-                Zero to Hero. We are currently working with the community to
-                separte the commercial and non-commercial content from the site
-                and make the data at zerotohero.ca fully open-source.
               </p>
             </div>
             <div class="faq-item">

@@ -6,10 +6,8 @@
 <template>
   <div class="home">
     <SocialHead
-      :title="`${$l2.name} Zero to Hero`"
-      :description="`Learn ${$l2.name} language from zero to fluency with ${
-        ['zh', 'en'].includes($l2.code) ? 'online courses and ' : ''
-      } comprehensible input.`"
+      :title="`PanLingo ${$l2.name}`"
+      :description="`Learn ${$l2.name} language from zero to fluency with by comprehensible input.`"
       :image="image"
     />
     <div class="container pt-5 pb-5">

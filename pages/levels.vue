@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/explore/levels',
     meta: {
-      title: 'Words by Level | Zero to Hero',
+      title: 'Words by Level | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -16,9 +16,9 @@
   <div class="main">
     <div class="container pt-5 pb-5" v-cloak>
       <SocialHead
-        :title="`HSK Words by Level | Chinese Zero to Hero`"
+        :title="`HSK Words by Level | PanLingo`"
         :image="'/img/hsk-word-vis.jpg'"
-        :description="'All the Chinese words in the HSK curriculum, as covered by the Chinese Zero to Hero courses.'"
+        :description="'All the Chinese words in the HSK curriculum, as covered by the HSK Standard Course textbooks.'"
       />
       <div class="row">
         <div class="col-sm-12">

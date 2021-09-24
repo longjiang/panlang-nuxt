@@ -10,11 +10,11 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Zero to Hero Languages",
+      default: "PanLingo",
     },
     description: {
       type: String,
-      default: "Language education done right.",
+      default: "Learn all languages of the world. Fully open-source.",
     },
     image: {
       type: String,
@@ -71,8 +71,8 @@ export default {
         {
           property: "og:site_name",
           content: this.$l2
-            ? `${this.$l2.name} Zero to Hero`
-            : "Zero to Hero Languages",
+            ? `PanLingo ${this.$l2.name}`
+            : "PanLingo",
         },
         { hid: "og:type", property: "og:type", content: "website" },
         {

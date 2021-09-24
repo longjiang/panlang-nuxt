@@ -2,7 +2,7 @@
   <div>
     <SocialHead
       v-if="grammar"
-      :title="`HSK 1-9 Chinese Grammar Cheatsheet  | ${$l2.name} Zero to Hero`"
+      :title="`HSK 1-9 Chinese Grammar Cheatsheet  | PanLingo ${$l2.name}`"
       :description="`${grammar
         .slice(0, 10)
         .map((g) => g.structure + ' (' + g.english + ')')
@@ -31,7 +31,7 @@
       <a
         href="https://server.chinesezerotohero.com/data/zh-grammar/zh-grammar.csv.txt"
         class="ml-2 btn btn-primary"
-        download="Chinese Zero to Hero Grammar Chart.csv"
+        download="PanLingo Chinese Grammar Chart.csv"
       >
         <i class="fa fa-download mr-1" />
         Download CSV

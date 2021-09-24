@@ -5,7 +5,7 @@
         v-if="shows && shows[0]"
         :title="`Learn ${$l2.name} with ${
           routeType === 'tv-shows' ? 'TV Shows' : 'Talks'
-        } | ${$l2.name} Zero to Hero`"
+        } | PanLingo ${$l2.name}`"
         :description="`Learn ${$l2.name} with ${
           routeType === 'tv-shows' ? 'TV Shows' : 'Talks'
         }.`"

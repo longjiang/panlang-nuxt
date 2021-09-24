@@ -38,7 +38,7 @@
               the list as a
               <a
                 href="https://server.chinesezerotohero.com/data/zh-grammar/zh-grammar.csv.txt"
-                download="Chinese Zero to Hero Grammar Chart.csv"
+                download="Chinese PanLingo Grammar Chart.csv"
               >
                 CSV
               </a>

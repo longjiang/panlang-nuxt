@@ -1,6 +1,6 @@
 {
-  "name": "Zero to Hero",
-  "short_name": "zerotohero",
+  "name": "PanLingo",
+  "short_name": "panlingo",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",

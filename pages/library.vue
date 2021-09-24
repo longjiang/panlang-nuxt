@@ -11,7 +11,7 @@
         :title="`${$l2.name} Guided Readers: ${booklists
           .slice(0, 1)
           .map((b) => b.title)
-          .join(', ')} and more | ${$l2.name} Zero to Hero`"
+          .join(', ')} and more | PanLingo ${$l2.name}`"
         image="/img/books-1.png"
         :description="`Annoated ${
           $l2.name

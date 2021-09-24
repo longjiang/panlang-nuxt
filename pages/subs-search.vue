@@ -3,7 +3,7 @@
     path: '/:l1/:l2/youtube/search-subs/:term?',
     props: true,
     meta: {
-      title: 'Search Subtitles | Zero to Hero',
+      title: 'Search Subtitles | PanLingo',
       metaTags: [
         {
           name: 'description',

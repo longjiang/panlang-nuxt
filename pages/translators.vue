@@ -10,7 +10,7 @@
 <template>
   <div class="bg-white" style="min-height: 100vh">
     <SocialHead
-      title="Online Translators | Zero to Hero Languages"
+      title="Online Translators | PanLingo"
       description="Check the availability of online translators for any given language."
       image="/img/thumbnail-language-icons.jpg"
     />
@@ -26,7 +26,7 @@
           >
             <router-link to="/" class="link-unstyled d-block">
               <i class="fa fa-chevron-left mr-2"></i>
-              Zero to Hero Languages
+              PanLingo
             </router-link>
             <router-link
               to="/language-map"
@@ -138,8 +138,7 @@
     <footer class="bg-dark mt-5 p-5" style="z-index: -1">
       <div class="text-center" style="line-height: 1.2; font-size: 1.1em">
         <router-link class="link-unstyled text-white" to="/">
-          <strong>ZERO TO HERO</strong>
-          <span style="font-weight: 300">LANGUAGES</span>
+          <strong>PanLingo</strong>
         </router-link>
       </div>
     </footer>

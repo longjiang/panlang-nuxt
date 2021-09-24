@@ -10,8 +10,8 @@
 <template>
   <div>
     <SocialHead
-      title="Zero to Hero Languages | Master any language by comprehensible input."
-      description="We provide live TV channels in the target language, TV shows with subtitles, music with lyrics, phrasebooks with video examples... everything that can help you to learn a language “by osmosis.” We are also known for our “Chinese Zero to Hero” and “English Zero to Hero” online language courses."
+      title="PanLingo | Learn all languages in the world. Fully open-source."
+      description="PanLingo is an open-source platform that helps you learn languages. We provides live TV channels, TV shows with subtitles, music with lyrics, phrasebooks with video examples... everything that can help you to learn a language “by osmosis.”"
     />
     <div
       class="container-fluid pt-4"
@@ -21,7 +21,7 @@
         <div class="row pt-5 mb-5">
           <div class="col-sm-12">
             <div class="z2h-logo" style="line-height: 1.2">
-              <strong style="font-size: 3rem">zerotohero.ca</strong>
+              <strong style="font-size: 3rem">PanLingo</strong>
               <div class="mt-3" style="font-weight: 300; font-size: 1.6rem">
                 Learn all languages of the world. Fully open-source.
               </div>

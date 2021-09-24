@@ -67,33 +67,7 @@
                 <i class="fas fa-globe-asia"></i>
               </router-link>
             </div>
-
-            <router-link
-              v-if="l1.code === 'en' && l2.code === 'zh'"
-              to="/en/zh/"
-            >
-              <img
-                src="/img/czh-logo-light.png"
-                alt="Chinese Zero to Hero"
-                style="max-width: 11rem; margin: 2rem 0 1rem 0"
-                class="logo"
-                data-not-lazy
-              />
-            </router-link>
-            <router-link
-              v-else-if="l1.code === 'zh' && l2.code === 'en'"
-              to="/zh/en/"
-            >
-              <img
-                src="/img/ezh-logo-light.png"
-                alt="Chinese Zero to Hero"
-                style="max-width: 11rem; margin: 1.5rem 0"
-                class="logo"
-                data-not-lazy
-              />
-            </router-link>
             <LanguageLogo
-              v-else-if="l1 && l2"
               :l1="l1"
               :l2="l2"
               style="margin: 1.5rem 0"

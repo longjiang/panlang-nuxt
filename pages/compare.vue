@@ -219,11 +219,11 @@ export default {
       if (this.a && this.b) {
         return `“${this.a.bare}” vs “${this.b.bare}” - ${
           this.$l2 ? this.$l2.name : ""
-        } Words Compared | ${this.$l2 ? this.$l2.name : ""} Zero to Hero`;
+        } Words Compared | PanLingo ${this.$l2 ? this.$l2.name : ""}`;
       }
-      return `${this.$l2 ? this.$l2.name : ""} Words Compared | ${
+      return `${this.$l2 ? this.$l2.name : ""} Words Compared | PanLingo ${
         this.$l2 ? this.$l2.name : ""
-      } Zero to Hero`;
+      }`;
     },
     description() {
       if (this.a && this.b) {

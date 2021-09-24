@@ -3,7 +3,7 @@
     path: '/:l1/:l2/cases/nouns/:args?',
     props: true,
     meta: {
-      title: 'Learn Noun Cases | Zero to Hero',
+      title: 'Learn Noun Cases | PanLingo Russian',
       metaTags: [
         {
           name: 'description',

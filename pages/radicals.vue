@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/radicals',
     meta: {
-      title: 'Radicals | Zero to Hero',
+      title: 'Radicals | PanLingo Chinese',
       metaTags: [
         {
           name: 'description',
@@ -16,7 +16,7 @@
 <template>
   <div class="main pt-5 pb-4">
     <SocialHead
-      :title="`Chinese Radicals | Chinese Zero to Hero`"
+      :title="`Chinese Radicals | PanLingo Chinese`"
       :description="`The most common Chinese radicals, and characters that use them.`"
       :image="`/img/placeholder.jpg`"
     />

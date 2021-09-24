@@ -12,8 +12,8 @@
     <div class="container pb-5 lesson-videos">
       <SocialHead
         v-if="lessonVideos[0]"
-        :title="`Chinese Lesson Expansion Videos | Chinese Zero to Hero`"
-        :description="`After finishing Lesson ${lesson} of the Chinse Zero to Hero HSK ${level} Course, reinforce the vocabulary you have learned in the lesson by watching these ${lessonVideos.length} videos:`"
+        :title="`Chinese Lesson Expansion Videos | PanLingo`"
+        :description="`After finishing Lesson ${lesson} of the the HSK ${level} Standard Course, reinforce the vocabulary you have learned in the lesson by watching these ${lessonVideos.length} videos:`"
         :image="`https://img.youtube.com/vi/${lessonVideos[0].youtube_id}/hqdefault.jpg`"
       />
       <div class="row">
@@ -46,7 +46,7 @@
               class="link-unstyled text-primary"
               target="_blank"
             >
-              <b>Chinese Zero to Hero HSK {{ level }} Course</b>
+              <b>HSK {{ level }} Standard Course</b>
             </a>
             , reinforce the vocabulary you have learned in the lesson by
             watching these

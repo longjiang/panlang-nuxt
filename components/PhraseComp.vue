@@ -125,11 +125,11 @@ export default {
       if (this.term) {
         return `Learn the ${this.$l2 ? this.$l2.name : ""} Phrase “${
           this.term
-        }” | ${this.$l2 ? this.$l2.name : ""} Zero to Hero Dictionary`;
+        }” | ${this.$l2 ? this.$l2.name : ""} PanLingo Dictionary`;
       }
       return `Lookup ${this.$l2 ? this.$l2.name : ""} Phrases | ${
         this.$l2 ? this.$l2.name : ""
-      } Zero to Hero`;
+      } PanLingo`;
     },
     description() {
       if (this.term) {

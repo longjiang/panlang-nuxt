@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/contact-us',
     meta: {
-      title: 'Contact Us | Zero to Hero',
+      title: 'Contact Us | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -15,7 +15,7 @@
 <template>
   <div class="main">
     <div class="container pt-5 pb-5">
-      <SocialHead :title="`Contact Us | ${$l2.name} Zero to Hero`" />
+      <SocialHead :title="`Contact Us | PanLingo ${$l2.name}`" />
       <template v-if="this.$l1.code && this.$l2.code === 'en'">
         <div class="row">
           <div class="col-12 text-center mt-4">
@@ -31,7 +31,7 @@
         <div class="row">
           <div class="col-12">
             <h3 class="mb-5 text-center">
-              {{ $t("Contact {l2} Zero to Hero", { l2: $l2.name }) }}
+              {{ $t("Contact PanLingo") }}
             </h3>
           </div>
         </div>

@@ -3,7 +3,7 @@
     path: '/:l1/:l2/tutoring/lesson/:id',
     props: true,
     meta: {
-      title: 'Tutoring Kit | Zero to Hero',
+      title: 'Tutoring Kit | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -20,7 +20,7 @@
         v-if="lesson && images && images[0]"
         :title="`${level(lesson.level)} ${$l2.name} Lesson Kit: “${
           lesson.name
-        }” | ${$l2.name} Zero to Hero`"
+        }” | PanLingo ${$l2.name}`"
         :description="`Topic focus: ${lesson.subjects.replace(/<.*?>/gi, '')}`"
         :image="images[0].src"
       />

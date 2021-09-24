@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/saved-words',
     meta: {
-      title: 'Saved Words | Zero to Hero',
+      title: 'Saved Words | PanLingo',
       metaTags: [
         {
           name: 'description',

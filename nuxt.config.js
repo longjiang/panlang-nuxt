@@ -4,7 +4,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Zero to Hero Languages',
+    title: 'PanLingo',
     htmlAttrs: {
       lang: 'en'
     },
@@ -57,9 +57,9 @@ export default {
 
   pwa: {
     manifest: {
-      name: 'Zero to Hero Education',
-      short_name: 'Zero to Hero',
-      description: 'Language education done right.',
+      name: 'PanLingo',
+      short_name: 'PanLingo',
+      description: 'Learn all languages of the world. Fully open-source.',
       theme_color: '#fd4f1c',
       useWebmanifestExtension: false
     },

@@ -274,11 +274,11 @@ export default {
       if (this.phrase) {
         return `Learn the ${this.$l2 ? this.$l2.name : ""} Phrase “${
           this.phrase
-        }” | ${this.$l2 ? this.$l2.name : ""} Zero to Hero Dictionary`;
+        }” | PanLingo ${this.$l2 ? this.$l2.name : ""} Dictionary`;
       }
-      return `Lookup ${this.$l2 ? this.$l2.name : ""} Phrases | ${
+      return `Lookup ${this.$l2 ? this.$l2.name : ""} Phrases | PanLingo ${
         this.$l2 ? this.$l2.name : ""
-      } Zero to Hero`;
+      }`;
     },
     description() {
       if (this.phrase) {

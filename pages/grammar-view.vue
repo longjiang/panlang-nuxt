@@ -9,7 +9,7 @@
     <div class="container pt-4" id="main">
       <SocialHead
         v-if="grammar && images && images[0]"
-        :title="`Chinese Grammar Pattern “${grammar.structure}” (HSK${grammar.code}) | ${$l2.name} Zero to Hero`"
+        :title="`Chinese Grammar Pattern “${grammar.structure}” (HSK${grammar.code}) | PanLingo ${$l2.name}`"
         :description="`Example: ${grammar.example} ${grammar.exampleTranslation}`"
         :image="images[0].src"
       />

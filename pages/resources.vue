@@ -3,7 +3,7 @@
     path: '/:l1/:l2/resource/list/:topic?/:type?',
     props: true,
     meta: {
-      title: 'Resources | Zero to Hero',
+      title: 'Resources | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -17,7 +17,7 @@
   <div class="main pt-5 pb-5">
     <SocialHead
       v-if="resources[0]"
-      :title="`${resources.length} Resources to Help You Learn ${$l2.name} | ${$l2.name} Zero to Hero`"
+      :title="`${resources.length} Resources to Help You Learn ${$l2.name} | PanLingo ${$l2.name}`"
       :description="`${resources.map((r) => r.title).join(', ')}`"
       :image="resources[0].thumbnail"
     />

@@ -3,7 +3,7 @@
     path: '/:l1/:l2/explore/roots/:arg?',
     props: true,
     meta: {
-      title: 'Roots | Zero to Hero',
+      title: 'Chinese Word Patterns | PanLingo Chinese',
       metaTags: [
         {
           name: 'description',

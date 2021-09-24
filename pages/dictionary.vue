@@ -221,11 +221,9 @@ export default {
           this.entry.definitions
             ? this.entry.definitions.slice(0, 2).join("; ")
             : ""
-        } | ${this.$l2 ? this.$l2.name : ""} Zero to Hero Dictionary`;
+        } | ${this.$l2 ? this.$l2.name : ""} PanLingo Dictionary`;
       }
-      return `${this.$l2 ? this.$l2.name : ""} Dictionary | ${
-        this.$l2 ? this.$l2.name : ""
-      } Zero to Hero`;
+      return `PanLingo ${this.$l2 ? this.$l2.name : ""} Dictionary`;
     },
     description() {
       if (this.entry) {

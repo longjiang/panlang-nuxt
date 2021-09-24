@@ -27,8 +27,7 @@
             style="line-height: 1.2; font-size: 1.1em"
           >
             <router-link class="link-unstyled text-white" to="/">
-              <strong>ZERO TO HERO</strong>
-              <span style="font-weight: 300">LANGUAGES</span>
+              <strong>PanLingo</strong>
             </router-link>
           </div>
           <Choose :showLanguageList="false" skin="dark" />

@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/keyboard',
     meta: {
-      title: 'Keyboard | Zero to Hero',
+      title: 'Keyboard | PanLingo Klingon',
       metaTags: [
         {
           name: 'description',

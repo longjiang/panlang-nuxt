@@ -18,7 +18,7 @@
     >
       <SocialHead
         v-if="video"
-        :title="`Learn ${$l2.name} from the video ${video.title} | ${$l2.name} Zero to Hero`"
+        :title="`Learn ${$l2.name} from the video ${video.title} | PanLingo ${$l2.name}`"
         :description="`Watch the video -- ${
           video.title
         } -- study the subtitles and improve your ${$l2.name}! ${

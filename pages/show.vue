@@ -233,7 +233,7 @@ export default {
       if (['Music', 'Movies', 'News'].includes(this.show.title)) {
         what = this.show.title
       }
-      return `Learn ${this.$l2.name} with ${what} | ${this.$l2.name} Zero to Hero`;
+      return `Learn ${this.$l2.name} with ${what} | PanLingo ${this.$l2.name}`;
     },
   },
   watch: {

@@ -3,7 +3,7 @@
     path: '/:l1/:l2/youtube/search/:term?/:start?',
     props: true,
     meta: {
-      title: 'YouTube Reader | Zero to Hero',
+      title: 'YouTube Reader | PanLingo',
       metaTags: [
         {
           name: 'description',

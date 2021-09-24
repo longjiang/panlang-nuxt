@@ -10,7 +10,7 @@
 <template>
   <div class="bg-white" style="min-height: 100vh">
     <SocialHead
-      title="Faces of World Languages | Zero to Hero Languages"
+      title="Faces of World Languages | PanLingo"
       description="Tap on any face to learn the language! Live TV channels, TV shows with subtitles, music with lyrics, phrasebooks with video examples... everything that can help you to learn a language “by osmosis.”"
       image="/img/thumbnail-language-icons.jpg"
     />
@@ -26,7 +26,7 @@
           >
             <router-link to="/" class="link-unstyled d-block">
               <i class="fa fa-chevron-left mr-2"></i>
-              Zero to Hero Languages
+              PanLingo
             </router-link>
             <router-link
               to="/language-map"
@@ -127,8 +127,7 @@
         style="line-height: 1.2; font-size: 1.1em"
       >
         <router-link class="link-unstyled text-white" to="/">
-          <strong>ZERO TO HERO</strong>
-          <span style="font-weight: 300">LANGUAGES</span>
+          <strong>PanLingo</strong>
         </router-link>
       </div>
     </footer>

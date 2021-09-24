@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/learning-path',
     meta: {
-      title: 'Learning Path | Zero to Hero',
+      title: 'Learning Path | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -17,7 +17,7 @@
     <div class="container pt-5 pb-5">
       <SocialHead
         v-if="courses && courses['A1'] && courses['A1'][0]"
-        :title="`Complete Guide to Mastering the ${$l2.name} Language | ${$l2.name} Zero to Hero`"
+        :title="`Complete Guide to Mastering the ${$l2.name} Language | ${$l2.name} PanLingo`"
         :description="`Getting started in just ${
           Math.ceil(levels[0].hours / 10) * 10
         } hours. From zero to mastery in ${(($l2.hours || 1100) * 4)
@@ -27,7 +27,7 @@
       />
       <SocialHead
         v-else
-        :title="`Complete Guide to Mastering the ${$l2.name} Language | ${$l2.name} Zero to Hero`"
+        :title="`Complete Guide to Mastering the ${$l2.name} Language | ${$l2.name} PanLingo`"
         :description="`From zero to mastery in ${(($l2.hours || 1100) * 4)
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} hours`"

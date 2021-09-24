@@ -263,7 +263,7 @@ export default {
       if (this.currentChannel) {
         title = `Watch Live: ${this.currentChannel.name}`;
       }
-      title = `${title} | ${this.$l2.name} Zero to Hero`;
+      title = `${title} | PanLingo ${this.$l2.name}`;
       return title;
     },
     description() {

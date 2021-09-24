@@ -57,13 +57,13 @@ export default {
     },
     title() {
       if (this.phrasebook) {
-        return `${this.phrasebook.title} | ${
+        return `${this.phrasebook.title} | PanLingo ${
           this.$l2 ? this.$l2.name : ""
-        } Zero to Hero`;
+        }`;
       }
-      return `${this.$l2 ? this.$l2.name : ""} Phrasebook | ${
+      return `${this.$l2 ? this.$l2.name : ""} Phrasebook | PanLingo ${
         this.$l2 ? this.$l2.name : ""
-      } Zero to Hero`;
+      }`;
     },
     description() {
       if (this.phrasebook) {

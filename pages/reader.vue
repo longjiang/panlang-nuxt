@@ -2,7 +2,7 @@
   {
     path: '/:l1/:l2/reader/:method?/:arg?',
     meta: {
-      title: 'Reader | Zero to Hero',
+      title: 'Reader | PanLingo',
       metaTags: [
         {
           name: 'description',
@@ -16,7 +16,7 @@
 <template>
   <div class="main pt-5 pb-5">
     <SocialHead
-      :title="`${$l2.name} Text Reader (Annotator) | ${$l2.name} Zero to Hero`"
+      :title="`${$l2.name} Text Reader (Annotator) | PanLingo ${$l2.name}`"
       :description="`Read ${$l2.name} text with phonetic annotation dictionary lookup. Save new words for review.`"
     />
     <div class="container">

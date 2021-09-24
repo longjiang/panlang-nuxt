@@ -3,7 +3,7 @@
     path: '/:l1/:l2/explore/related/:arg?',
     props: true,
     meta: {
-      title: 'Related Words | Zero to Hero',
+      title: 'Related Words | PanLingo',
       metaTags: [
         {
           name: 'description',
