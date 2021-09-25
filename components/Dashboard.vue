@@ -354,9 +354,11 @@ export default {
       }
     },
     importSavedWords(rows) {
-      this.$store.dispatch("savedWords/importWords", rows)
+      this.$store.dispatch("savedWords/importWords", rows);
     },
-    importSavedPhrases(rows) {},
+    importSavedPhrases(rows) {
+      this.$store.dispatch("savedPhrases/importPhrases", rows);
+    },
     genCSV() {
       let words = [];
       if (this.savedWordsSorted) {
@@ -377,7 +379,6 @@ export default {
           let ps = savedPhrasesLang.phrases.map((w) => {
             let op = Object.assign({}, w);
             if (!this.l2) op.l2 = savedPhrasesLang.l2.code;
-            delete op.exact;
             return op;
           });
           phrases = phrases.concat(ps);
