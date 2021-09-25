@@ -353,7 +353,9 @@ export default {
         };
       }
     },
-    importSavedWords(rows) {},
+    importSavedWords(rows) {
+      this.$store.dispatch("savedWords/importWords", rows)
+    },
     importSavedPhrases(rows) {},
     genCSV() {
       let words = [];
