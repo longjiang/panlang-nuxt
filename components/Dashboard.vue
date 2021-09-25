@@ -74,35 +74,56 @@
             :class="`btn btn-ghost-dark btn-sm ml-1 ${
               skin === 'light' ? 'text-secondary' : ''
             }`"
-            v-if="!showExportButtons"
-            @click="showExportButtons = true"
+            @click="showExportButtons = !showExportButtons"
           >
-            Export Saved Words &amp; Phrases
+            <i class="fa fa-download mr-1"></i>
+            Export
           </button>
-          <template v-if="showExportButtons">
+          <input
+            id="fileUpload"
+            ref="upload"
+            type="file"
+            hidden
+            @change="importCSV"
+          />
+          <button
+            :class="`btn btn-ghost-dark btn-sm ml-1 ${
+              skin === 'light' ? 'text-secondary' : ''
+            }`"
+            @click="importButtonClick()"
+          >
+            <i class="fa fa-upload mr-1"></i>
+            Import
+          </button>
+          <div v-if="showExportButtons" class="mt-2">
             <a
               :href="wordsCSVHref"
-              :download="`saved-words${l2 ? '-' + l2.code : ''}-${hostname}.csv`"
-              v-if="savedWordsSorted && savedWordsSorted.length > 0 && wordsCSVHref"
-              :class="`btn btn-ghost-dark btn-sm ml-1 ${
-                skin === 'light' ? 'text-secondary' : ''
-              }`"
+              :download="`saved-words${
+                l2 ? '-' + l2.code : ''
+              }-${hostname}.csv`"
+              v-if="
+                savedWordsSorted && savedWordsSorted.length > 0 && wordsCSVHref
+              "
+              class="mr-2"
             >
-              <i class="fa fa-download"></i>
+              <i class="fa fa-file mr-1"></i>
               Saved Words
             </a>
             <a
-              :href="savedPhrasesSorted && savedPhrasesSorted.length > 0 && phrasesCSVHref"
-              :download="`saved-phrases${l2 ? '-' + l2.code : ''}-${hostname}.csv`"
+              :href="
+                savedPhrasesSorted &&
+                savedPhrasesSorted.length > 0 &&
+                phrasesCSVHref
+              "
+              :download="`saved-phrases${
+                l2 ? '-' + l2.code : ''
+              }-${hostname}.csv`"
               v-if="phrasesCSVHref"
-              :class="`btn btn-ghost-dark btn-sm ml-1 ${
-                skin === 'light' ? 'text-secondary' : ''
-              }`"
             >
-              <i class="fa fa-download"></i>
+              <i class="fa fa-file mr-1"></i>
               Saved Phrases
             </a>
-          </template>
+          </div>
         </div>
       </div>
       <div class="history-items row" v-if="itemsFiltered.length > 0">
@@ -312,6 +333,28 @@ export default {
     },
   },
   methods: {
+    importButtonClick() {
+      this.$refs["upload"].click();
+    },
+    importCSV(event) {
+      let files = event.target.files;
+      for (let file of files) {
+        let reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = (event) => {
+          let text = event.target.result;
+          let parsed = Papa.parse(text, { header: true });
+          let rows = parsed.data;
+          if (rows && rows[0] && rows[0].id) {
+            this.importSavedWords(rows);
+          } else if (rows && rows[0] && rows[0].phrase) {
+            this.importSavedPhrases(rows);
+          }
+        };
+      }
+    },
+    importSavedWords(rows) {},
+    importSavedPhrases(rows) {},
     genCSV() {
       let words = [];
       if (this.savedWordsSorted) {
