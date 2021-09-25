@@ -331,7 +331,7 @@ export default {
       let html = text;
       if (this.$l2.continua) {
         html = await this.tokenizeContinua(text, batchId);
-      } else if ((this.$l2.scripts && this.$l2.scripts[0] && this.$l2.scripts[0].script === 'Arab') || ['kn'].includes(this.$l2.code)) {
+      } else if ((this.$l2.scripts && this.$l2.scripts[0] && this.$l2.scripts[0].script === 'Arab') || (this.$l2.wiktionary && this.$l2.wiktionary < 2000)) {
         html = await this.tokenizeIntegral(text);
       } else if (
         this.$l2.agglutinative || this.$l2.indo ||
