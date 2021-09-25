@@ -181,7 +181,7 @@ const Dictionary = {
               }
             }
           }
-          let bare = this.l2 !== 'vie' ? this.stripAccents(item.word) : item.word
+          let bare = !['vie', 'tur'].includes(this.l2) ? this.stripAccents(item.word) : item.word
           let pronunciations = item.sounds && item.sounds.length > 0 ? item.sounds.filter(s => s.ipa).map(s => s.ipa.replace(/[/\[\]]/g, '')) : []
           if (item.heads) pronunciations = pronunciations.concat(item.heads.filter(h => h.tr).map(h => h.tr))
           pronunciations = this.unique(pronunciations)
@@ -213,7 +213,7 @@ const Dictionary = {
     let words = parsed.data
     words = words.filter(w => w.word.length > 0) // filter empty rows
       .map(item => {
-        item.bare = this.l2 !== 'vie' ? this.stripAccents(item.word) : item.word
+        item.bare = !['vie', 'tur'].includes(this.l2) ? this.stripAccents(item.word) : item.word
         item.search = item.bare.toLowerCase(),
           item.head = item.word
         item.accented = item.word
@@ -276,7 +276,7 @@ const Dictionary = {
     return word
   },
   lookupMultiple(text, ignoreAccents = false) {
-    if (ignoreAccents && this.l2 !== 'vie') text = this.stripAccents(text)
+    if (ignoreAccents && !['vie', 'tur'].includes(this.l2)) text = this.stripAccents(text)
     let words = this.words.filter(word => word && word[ignoreAccents ? 'bare' : 'head'].toLowerCase() === text.toLowerCase())
     return words
   },
@@ -441,9 +441,9 @@ const Dictionary = {
   },
   subdictFromText(text) {
     let search = text.toLowerCase()
-    if (this.l2 !== 'vie') search = this.stripAccents(search)
+    if (!['vie', 'tur'].includes(this.l2)) search = this.stripAccents(search)
     let words = this.words.filter(function (row) {
-      if (this.l2 === 'vie') {
+      if (['vie', 'tur'].includes(this.l2)) {
         return text.includes(row.head) || search.includes(row.head)
       } else {
         return text.includes(row.head) || (row.search.length > 0 && search.includes(row.search))
@@ -464,7 +464,7 @@ const Dictionary = {
     // Only return the *first* seen word and those the same as it
     let first = false
     let search = text.toLowerCase()
-    // if (this.l2 !== 'vie') search = this.stripAccents(search)  // This breaks languages with combining marks!
+    if (!['vie', 'tur'].includes(this.l2)) search = this.stripAccents(search)  // This breaks languages with combining marks!
     let matchedText
     let matches = this.words
       .filter((word) => {
@@ -474,7 +474,6 @@ const Dictionary = {
         } else {
           let matchedIndex = search.indexOf(word.search)
           if (matchedIndex !== -1 && !this.isCombining(word.search.charAt(0))) {
-            
             let matchEndIndex = matchedIndex + word.search.length
             let nextChar = text.charAt(matchEndIndex)
             // console.log(`🌹 Found word "${word.search}"" in "${search}" from ${matchedIndex} to ${matchEndIndex}, nextChar is ${nextChar}`)
@@ -625,7 +624,7 @@ const Dictionary = {
     }
   },
   lookupFuzzy(text, limit = 30) { // text = 'abcde'
-    if (this.l2 !== 'vie') text = this.stripAccents(text)
+    if (!['vie', 'tur'].includes(this.l2)) text = this.stripAccents(text)
     text = text.toLowerCase()
     let words = []
     if (['fra'].includes(this.l2)) {

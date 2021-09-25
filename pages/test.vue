@@ -9,9 +9,9 @@
       <div class="row">
         <div class="col-sm-12">
           <Annotate>
-            <h3>បងដឹងទេថាបងគឺអ្វីគឺជាមនុស្សដែលអូនស្រលាញ់</h3>
+            <h3>Öyle bişi yok bunu bana yapalım...</h3>
           </Annotate>
-          <h3>បងដឹងទេថាបងគឺអ្វីគឺជាមនុស្សដែលអូនស្រលាញ់</h3>
+          <h3>Öyle bişi yok bunu bana yapalım...</h3>
         </div>
       </div>
     </div>
