@@ -278,6 +278,7 @@ export default {
             en: this.enData,
             wiktionary: "with-wiktionary",
           },
+          query: Object.fromEntries(new URLSearchParams(location.search))
         });
       }
     },
