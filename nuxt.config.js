@@ -60,7 +60,7 @@ export default {
       name: 'PanLingo',
       short_name: 'PanLingo',
       description: 'Learn all languages of the world. Fully open-source.',
-      theme_color: '#fd4f1c',
+      theme_color: '#343a40',
       useWebmanifestExtension: false
     },
     workbox: {
