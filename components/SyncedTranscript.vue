@@ -62,7 +62,7 @@
         </h6>
         <Review
           v-for="(reviewItem, reviewItemIndex) in review[index + visibleMin]"
-          :key="`review-${index + visibleMin}-${reviewItemIndex}-${
+          :key="`review-${index + visibleMin}-${reviewItem.text || reviewItem.simplified}-${reviewItemIndex}-${
             reviewKeys[index + visibleMin]
           }`"
           :reviewItem="reviewItem"
