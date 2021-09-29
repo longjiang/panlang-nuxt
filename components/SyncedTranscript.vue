@@ -62,9 +62,9 @@
         </h6>
         <Review
           v-for="(reviewItem, reviewItemIndex) in review[index + visibleMin]"
-          :key="`review-${index + visibleMin}-${reviewItem.text || reviewItem.simplified}-${reviewItemIndex}-${
-            reviewKeys[index + visibleMin]
-          }`"
+          :key="`review-${index + visibleMin}-${
+            reviewItem.text || reviewItem.simplified
+          }-${reviewItemIndex}-${reviewKeys[index + visibleMin]}`"
           :reviewItem="reviewItem"
           :hsk="hsk"
           :skin="skin"
@@ -492,19 +492,48 @@ export default {
     },
     async generateReview() {
       let review = {};
-      let affectedLines = [];
+      let affectedLineNumbers = [];
       for (let savedWord of this.$store.state.savedWords.savedWords[
         this.$l2.code
       ]) {
         let word = await (await this.$getDictionary()).get(savedWord.id);
         if (word) {
-          affectedLines = affectedLines.concat(
-            await this.addReviewItemsForWord(word, savedWord.forms, review)
+          let lineNumbers = await this.addReviewItemsForWord(
+            word,
+            savedWord.forms,
+            review
           );
+          affectedLineNumbers = affectedLineNumbers.concat(lineNumbers);
         }
       }
-      this.updateKeysForLines(affectedLines);
+      this.updateKeysForLines(affectedLineNumbers);
       return review;
+    },
+    async addReviewItemsForWord(word, wordForms, review) {
+      let lineOffset = this.reviewLineOffset;
+      let affectedLineNumbers = [];
+      for (let form of wordForms
+        .filter((form) => form && form !== "-")
+        .sort((a, b) => b.length - a.length)) {
+        for (let lineIndex in this.lines) {
+          if (this.reviewConditions(lineIndex, form, word)) {
+            let reviewItem = await this.generateReviewItem(
+              lineIndex,
+              form,
+              word
+            );
+            let reviewIndex = Math.min(
+              Math.ceil((Number(lineIndex) + lineOffset) / 10) * 10,
+              this.lines.length - 1
+            );
+            review[reviewIndex] = review[reviewIndex] || [];
+            review[reviewIndex].push(reviewItem);
+            affectedLineNumbers.push(reviewIndex);
+            this.reviewKeys[reviewIndex]++;
+          }
+        }
+      }
+      return affectedLineNumbers;
     },
     updateKeysForLines(affectedLines) {
       for (let lineIndex in this.reviewKeys) {
@@ -522,32 +551,6 @@ export default {
         );
         if (review[reviewIndex].length < length)
           affectedLines.push(reviewIndex);
-      }
-      return affectedLines;
-    },
-    async addReviewItemsForWord(word, wordForms, review) {
-      let lineOffset = this.reviewLineOffset;
-      let affectedLines = [];
-      for (let form of wordForms
-        .filter((form) => form && form !== "-")
-        .sort((a, b) => b.length - a.length)) {
-        for (let lineIndex in this.lines) {
-          if (this.reviewConditions(lineIndex, form, word)) {
-            let reviewItem = await this.generateReviewItem(
-              lineIndex,
-              form,
-              word
-            );
-            let reviewIndex = Math.min(
-              Math.ceil((Number(lineIndex) + lineOffset) / 10) * 10,
-              this.lines.length - 1
-            );
-            review[reviewIndex] = review[reviewIndex] || [];
-            review[reviewIndex].push(reviewItem);
-            affectedLines.push(reviewIndex);
-            this.reviewKeys[reviewIndex]++;
-          }
-        }
       }
       return affectedLines;
     },
@@ -677,7 +680,7 @@ export default {
     },
     goToLine(line) {
       this.currentLineIndex = this.lines.findIndex((l) => l === line);
-      this.nextLine = this.lines[this.currentLineIndex + 1]
+      this.nextLine = this.lines[this.currentLineIndex + 1];
       this.seekVideoTo(line.starttime);
     },
     rewind() {
