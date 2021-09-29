@@ -293,6 +293,28 @@ export default {
     },
   },
   methods: {
+    /**
+     * Generate review items during initial load.
+     */
+    async generateReview() {
+      let review = {};
+      let affectedLineNumbers = [];
+      for (let savedWord of this.$store.state.savedWords.savedWords[
+        this.$l2.code
+      ]) {
+        let word = await (await this.$getDictionary()).get(savedWord.id);
+        if (word) {
+          let lineNumbers = await this.addReviewItemsForWord(
+            word,
+            savedWord.forms,
+            review
+          );
+          affectedLineNumbers = affectedLineNumbers.concat(lineNumbers);
+        }
+      }
+      this.updateKeysForLines(affectedLineNumbers);
+      return review;
+    },
     async turnOffPreventJumptingAtStartAfter3Seconds() {
       await Helper.timeout(3000);
       this.preventJumpingAtStart = false;
@@ -491,25 +513,6 @@ export default {
         );
         this.updateKeysForLines(affectedLines);
       }
-    },
-    async generateReview() {
-      let review = {};
-      let affectedLineNumbers = [];
-      for (let savedWord of this.$store.state.savedWords.savedWords[
-        this.$l2.code
-      ]) {
-        let word = await (await this.$getDictionary()).get(savedWord.id);
-        if (word) {
-          let lineNumbers = await this.addReviewItemsForWord(
-            word,
-            savedWord.forms,
-            review
-          );
-          affectedLineNumbers = affectedLineNumbers.concat(lineNumbers);
-        }
-      }
-      this.updateKeysForLines(affectedLineNumbers);
-      return review;
     },
     async addReviewItemsForWord(word, wordForms, review) {
       let lineOffset = this.reviewLineOffset;
