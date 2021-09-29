@@ -82,12 +82,14 @@
 
 <script>
 import Helper from "@/lib/helper";
+import FastestLevenshtein from "fastest-levenshtein";
 import { mapState } from "vuex";
 export default {
   data() {
     return {
       answers: undefined,
       showAnswer: false,
+      s: [],
     };
   },
   computed: {
@@ -120,33 +122,34 @@ export default {
   },
   methods: {
     async findSimilarWords(text) {
+      let words = [];
       let savedWords = this.savedWords[this.$l2.code] || [];
       if (savedWords.length > 1) {
+        savedWords = savedWords.map((s) =>
+          Object.assign(
+            { distance: FastestLevenshtein.distance(s.forms[0], text) },
+            s
+          )
+        );
         savedWords = savedWords
           .filter((w) => w.forms && w.forms[0])
-          .sort(
-            (a, b) =>
-              Math.abs(text.length - a.forms[0].length) -
-              Math.abs(text.length - b.forms[0].length)
-          )
+          .sort((a, b) => a.distance - b.distance)
           .slice(0, 2);
-        let words = [];
         for (let w of savedWords) {
           let word = await (await this.$getDictionary()).get(w.id);
           words.push(word);
         }
-        return words;
       } else {
-        let words = await (await this.$getDictionary()).lookupFuzzy(text);
-        words = words.filter((word) => word.head !== text);
-        words = Helper.uniqueByValue(words, "head");
+        words = await (await this.$getDictionary()).lookupFuzzy(text);
         words = words.sort(
           (a, b) =>
             Math.abs(a.head.length - text.length) -
             Math.abs(b.head.length - text.length)
         );
-        return words;
       }
+      words = words.filter((word) => word.head !== text);
+      words = Helper.uniqueByValue(words, "head");
+      return words;
     },
     async generateAnswers(form, word) {
       let similarWords = await this.findSimilarWords(form);
