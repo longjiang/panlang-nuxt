@@ -40,8 +40,8 @@
                     This website is built on
                     <code>Vue.js</code>
                     and is fully open source. Check out the code on GitHub at
-                    <a href="https://github.com/longjiang/zerotohero-nuxt">
-                      https://github.com/longjiang/zerotohero-nuxt
+                    <a href="https://github.com/longjiang/panglang-nuxt">
+                      https://github.com/longjiang/panglang-nuxt
                     </a>
                     .
                   </p>
@@ -57,6 +57,10 @@
                     . Languages population size from
                     <a href="https://github.com/wooorm/speakers">
                       github.com/wooorm/speakers
+                    </a>
+                    . Public IPTV links for Live TV channels are obtained from
+                    <a href="https://github.com/iptv-org/iptv">
+                      https://github.com/iptv-org/iptv
                     </a>
                     .
                   </p>
@@ -209,8 +213,8 @@ export default {
       }
     },
     loadSettings() {
-      if (this.settingsLoaded === this.l2.code) return
-      this.settingsLoaded = this.l2.code
+      if (this.settingsLoaded === this.l2.code) return;
+      this.settingsLoaded = this.l2.code;
       this.$store.commit("settings/LOAD_SETTINGS");
       if (!this.$store.state.savedCollocations.savedCollocationsLoaded) {
         this.$store.commit("savedCollocations/LOAD_SAVED_COLLOCATIONS");
