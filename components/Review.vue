@@ -17,7 +17,7 @@
           $l2.scripts[0].direction === 'rtl',
       }"
     >
-      <Annotate tag="span" :buttons="true" class="transcript-line-chinese">
+      <Annotate tag="span" :buttons="true" class="transcript-line-l2">
         <span
           v-if="$l2.han && $l2.code !== 'ja'"
           v-html="
@@ -137,7 +137,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .review {
   margin: 0.5rem 0;
   padding: 1rem;
@@ -151,6 +151,13 @@ export default {
     overflow: hidden;
     padding: 0;
     font-size: 0.8em;
+  }
+  ::v-deep .transcript-line-l2 {
+    .highlight {
+      display: inline-block;
+      min-width: 5rem;
+      text-align: center;
+    }
   }
   .transcript-line-l1 {
     font-size: 13.44px;
@@ -168,8 +175,10 @@ export default {
       color: #999;
     }
     &:not(.show-answer) {
-      .highlight {
-        background-color: #ccc;
+      ::v-deep .transcript-line-l2 {
+        .highlight {
+          background-color: #ccc;
+        }
       }
     }
     &.show-answer {
@@ -179,8 +188,10 @@ export default {
   &.review-dark {
     background: #00000055;
     &:not(.show-answer) {
-      .highlight {
-        background: #444;
+      ::v-deep .transcript-line-l2 {
+        .highlight {
+          background: #444;
+        }
       }
     }
     &.show-answer {
@@ -188,11 +199,13 @@ export default {
     }
   }
   &:not(.show-answer) {
-    .highlight {
-      border-radius: 0.2rem;
-      * {
-        opacity: 0;
-        pointer-events: none;
+    ::v-deep .transcript-line-l2 {
+      .highlight {
+        border-radius: 0.2rem;
+        * {
+          opacity: 0;
+          pointer-events: none;
+        }
       }
     }
   }
