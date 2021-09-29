@@ -82,6 +82,7 @@
 
 <script>
 import Helper from "@/lib/helper";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -90,6 +91,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("savedWords", ["savedWords"]),
     $l1() {
       if (typeof this.$store.state.settings.l1 !== "undefined")
         return this.$store.state.settings.l1;
@@ -118,14 +120,33 @@ export default {
   },
   methods: {
     async findSimilarWords(text) {
-      let words = await (await this.$getDictionary()).lookupFuzzy(text);
-      words = words.filter((word) => word.head !== text);
-      words = Helper.uniqueByValue(words, "head");
-      return words.sort(
-        (a, b) =>
-          Math.abs(a.head.length - text.length) -
-          Math.abs(b.head.length - text.length)
-      );
+      let savedWords = this.savedWords[this.$l2.code] || [];
+      if (savedWords.length > 1) {
+        savedWords = savedWords
+          .filter((w) => w.forms && w.forms[0])
+          .sort(
+            (a, b) =>
+              Math.abs(text.length - a.forms[0].length) -
+              Math.abs(text.length - b.forms[0].length)
+          )
+          .slice(0, 2);
+        let words = [];
+        for (let w of savedWords) {
+          let word = await (await this.$getDictionary()).get(w.id);
+          words.push(word);
+        }
+        return words;
+      } else {
+        let words = await (await this.$getDictionary()).lookupFuzzy(text);
+        words = words.filter((word) => word.head !== text);
+        words = Helper.uniqueByValue(words, "head");
+        words = words.sort(
+          (a, b) =>
+            Math.abs(a.head.length - text.length) -
+            Math.abs(b.head.length - text.length)
+        );
+        return words;
+      }
     },
     async generateAnswers(form, word) {
       let similarWords = await this.findSimilarWords(form);
