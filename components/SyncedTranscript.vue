@@ -6,83 +6,85 @@
       'synced-transcript-single-line': single,
     }"
   >
-    <template
-      v-for="(line, index) in single
-        ? [lines[currentLineIndex || 0]]
-        : lines.slice(visibleMin, visibleMax - visibleMin)"
-    >
-      <TranscriptLine
-        :line="line"
-        :parallelLine="
-          $l2.code !== $l1.code && parallellines
-            ? matchedParallelLines[
-                single ? currentLineIndex : index + visibleMin
-              ]
-            : undefined
-        "
-        :lineIndex="index + visibleMin"
-        :key="`line-${index + visibleMin}-${line.starttime}-${line.line.substr(
-          0,
-          10
-        )}`"
-        :abnormal="
-          $adminMode &&
-          lines[index + visibleMin - 1] &&
-          lines[index + visibleMin - 1].starttime > line.starttime
-        "
-        :matched="
-          !single &&
-          highlight &&
-          line &&
-          new RegExp(highlight.join('|')).test(line.line)
-        "
-        :showSubsEditing="showSubsEditing"
-        :sticky="sticky"
-        :single="single"
-        :highlight="highlight"
-        :hsk="hsk"
-        :notes="notes"
-        :enableTranslationEditing="$adminMode && enableTranslationEditing"
-        @click="lineClick(line)"
-        @removeLineClick="removeLine(index + visibleMin)"
-        @trasnlationLineBlur="trasnlationLineBlur"
-        @trasnlationLineKeydown="trasnlationLineKeydown"
-      />
-      <div v-if="!single" :key="`line-${index + visibleMin}-review`">
-        <h6
-          class="text-center mt-3"
-          :key="`review-title-${index + visibleMin}-${
-            reviewKeys[index + visibleMin]
-          }`"
-          v-if="
-            review[index + visibleMin] && review[index + visibleMin].length > 0
+    <client-only>
+      <template
+        v-for="(line, index) in single
+          ? [lines[currentLineIndex || 0]]
+          : lines.slice(visibleMin, visibleMax - visibleMin)"
+      >
+        <TranscriptLine
+          :line="line"
+          :parallelLine="
+            $l2.code !== $l1.code && parallellines
+              ? matchedParallelLines[
+                  single ? currentLineIndex : index + visibleMin
+                ]
+              : undefined
           "
-        >
-          Pop Quiz
-        </h6>
-        <Review
-          v-for="(reviewItem, reviewItemIndex) in review[index + visibleMin]"
-          :key="`review-${index + visibleMin}-${
-            reviewItem.text || reviewItem.simplified
-          }-${reviewItemIndex}-${reviewKeys[index + visibleMin]}`"
-          :reviewItem="reviewItem"
+          :lineIndex="index + visibleMin"
+          :key="`line-${index + visibleMin}-${
+            line.starttime
+          }-${line.line.substr(0, 10)}`"
+          :abnormal="
+            $adminMode &&
+            lines[index + visibleMin - 1] &&
+            lines[index + visibleMin - 1].starttime > line.starttime
+          "
+          :matched="
+            !single &&
+            highlight &&
+            line &&
+            new RegExp(highlight.join('|')).test(line.line)
+          "
+          :showSubsEditing="showSubsEditing"
+          :sticky="sticky"
+          :single="single"
+          :highlight="highlight"
           :hsk="hsk"
-          :skin="skin"
+          :notes="notes"
+          :enableTranslationEditing="$adminMode && enableTranslationEditing"
+          @click="lineClick(line)"
+          @removeLineClick="removeLine(index + visibleMin)"
+          @trasnlationLineBlur="trasnlationLineBlur"
+          @trasnlationLineKeydown="trasnlationLineKeydown"
         />
+        <div v-if="!single" :key="`line-${index + visibleMin}-review`">
+          <h6
+            class="text-center mt-3"
+            :key="`review-title-${index + visibleMin}-${
+              reviewKeys[index + visibleMin]
+            }`"
+            v-if="
+              review[index + visibleMin] &&
+              review[index + visibleMin].length > 0
+            "
+          >
+            Pop Quiz
+          </h6>
+          <Review
+            v-for="(reviewItem, reviewItemIndex) in review[index + visibleMin]"
+            :key="`review-${index + visibleMin}-${
+              reviewItem.text || reviewItem.simplified
+            }-${reviewItemIndex}-${reviewKeys[index + visibleMin]}`"
+            :reviewItem="reviewItem"
+            :hsk="hsk"
+            :skin="skin"
+          />
+        </div>
+      </template>
+      <div
+        v-observe-visibility="visibilityChanged"
+        style="
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        "
+        v-if="!single && lines.length > visibleMax"
+      >
+        <Loader :sticky="true" />
       </div>
-    </template>
-    <div
-      v-observe-visibility="visibilityChanged"
-      style="
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      "
-      v-if="!single && lines.length > visibleMax"
-    >
-      <Loader :sticky="true" />
-    </div>
+    </client-only>
   </div>
 </template>
 
