@@ -488,16 +488,6 @@ export default {
         this.matchedParallelLines.splice(lineIndex, 1);
       this.emitUpdateTranslation();
     },
-    async findSimilarWords(text) {
-      let words = await (await this.$getDictionary()).lookupFuzzy(text);
-      words = words.filter((word) => word.head !== text);
-      words = Helper.uniqueByValue(words, "head");
-      return words.sort(
-        (a, b) =>
-          Math.abs(a.head.length - text.length) -
-          Math.abs(b.head.length - text.length)
-      );
-    },
     async updateReview(mutation) {
       if (mutation.type === "savedWords/ADD_SAVED_WORD") {
         let affectedLines = await this.addReviewItemsForWord(
@@ -580,29 +570,6 @@ export default {
     },
     async generateReviewItem(lineIndex, form, word) {
       let line = this.lines[lineIndex];
-      let similarWords = await this.findSimilarWords(form);
-      if (similarWords.length < 2) {
-        for (let i of [1, 2]) {
-          let randomWord = await (await this.$getDictionary()).random();
-          similarWords.push(randomWord);
-        }
-      }
-      let answers = similarWords
-        .map((similarWord) => {
-          return {
-            text: similarWord.head,
-            simplified: similarWord.simplified,
-            traditional: similarWord.traditional,
-            correct: false,
-          };
-        })
-        .slice(0, 2);
-      answers.push({
-        text: form,
-        simplified: word.simplified,
-        traditional: word.traditional,
-        correct: true,
-      });
       let parallelLines = this.matchedParallelLines
         ? this.matchedParallelLines[lineIndex]
         : undefined;
@@ -614,7 +581,6 @@ export default {
         word,
         simplified: word.simplified,
         traditional: word.traditional,
-        answers: Helper.shuffle(answers),
       };
     },
     seekVideoTo(starttime) {
