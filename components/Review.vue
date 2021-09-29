@@ -67,9 +67,9 @@
       >
         <span v-html="reviewItem.parallelLines" />
       </div>
-      <div class="mt-2">
+      <div class="mt-2" v-if="answers">
         <ReviewAnswerButton
-          v-for="(answer, index) in reviewItem.answers"
+          v-for="(answer, index) in answers"
           :key="`quiz-button-${index}`"
           :answer="answer"
           :skin="skin"
@@ -85,6 +85,7 @@ import Helper from "@/lib/helper";
 export default {
   data() {
     return {
+      answers: undefined,
       showAnswer: false,
     };
   },
@@ -109,7 +110,49 @@ export default {
       default: "light",
     },
   },
+  async mounted() {
+    this.answers = await this.generateAnswers(
+      this.reviewItem.text,
+      this.reviewItem.word
+    );
+  },
   methods: {
+    async findSimilarWords(text) {
+      let words = await (await this.$getDictionary()).lookupFuzzy(text);
+      words = words.filter((word) => word.head !== text);
+      words = Helper.uniqueByValue(words, "head");
+      return words.sort(
+        (a, b) =>
+          Math.abs(a.head.length - text.length) -
+          Math.abs(b.head.length - text.length)
+      );
+    },
+    async generateAnswers(form, word) {
+      let similarWords = await this.findSimilarWords(form);
+      if (similarWords.length < 2) {
+        for (let i of [1, 2]) {
+          let randomWord = await (await this.$getDictionary()).random();
+          similarWords.push(randomWord);
+        }
+      }
+      let answers = similarWords
+        .map((similarWord) => {
+          return {
+            text: similarWord.head,
+            simplified: similarWord.simplified,
+            traditional: similarWord.traditional,
+            correct: false,
+          };
+        })
+        .slice(0, 2);
+      answers.push({
+        text: form,
+        simplified: word.simplified,
+        traditional: word.traditional,
+        correct: true,
+      });
+      return Helper.shuffle(answers);
+    },
     async speak() {
       if (this.reviewItem.parallelLines) {
         await Helper.speak(this.reviewItem.parallelLines, this.$l1, 1.1);
