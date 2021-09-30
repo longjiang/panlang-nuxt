@@ -4757,7 +4757,7 @@ id,name,otherNames,wiktionary,glottologId,glottologFamilyId,glottologParentId,le
 4756,Old Norse,"Old Icelandic, Old Norwegian",7060,oldn1244,indo1319,west2805,language,63.42,10.38,NO,non,,I,H,,non,"Rasmus Rask (1787–1832), a Danish linguist and philologist"
 4757,Numanggang,,1,numa1254,nucl1709,boan1245,language,-6.39311,146.719,PG,nop,,I,L,,,
 4758,Ngongo,,,ngon1267,atla1278,nson1239,language,-5.5,18.2,CD,noq,,I,L,,,
-4759,Norwegian,,1825,norw1258,indo1319,west2805,language,59.92,10.71,FI NO RU SE SJ,nor,no,M,L,5320000,no,"Knut Hamsun (1859 – 1952), a Norwegian writer who was awarded the Nobel Prize in Literature in 1920"
+4759,Norwegian,,71691,norw1258,indo1319,west2805,language,59.92,10.71,FI NO RU SE SJ,nor,no,M,L,5320000,no,"Knut Hamsun (1859 – 1952), a Norwegian writer who was awarded the Nobel Prize in Literature in 1920"
 4760,Eastern Nisu,,,east2349,sino1245,nort2717,language,23.9843,102.694,CN VN,nos,,I,L,,,
 4761,Nomatsiguenga,,2,noma1263,araw1281,prea1240,language,-11.5349,-74.4371,PE,not,,I,L,4000,,
 4762,Ewage-Notu,,,ewag1241,nucl1709,coas1297,language,-8.68756,148.405,PG,nou,,I,L,,,

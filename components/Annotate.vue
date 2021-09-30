@@ -337,6 +337,7 @@ export default {
         this.$l2.agglutinative || this.$l2.indo ||
         [
           "de",
+          "no",
           "en",
           "hy",
           "vi",
