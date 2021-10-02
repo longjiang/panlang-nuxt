@@ -1,8 +1,17 @@
 <template>
   <div class="widget widget-dark mb-5" style="max-width: 70vh; margin: 0 auto">
     <div class="widget-title">
-      Discover {{ $l2 ? $l2.name : "" }}
-      {{ routeType === "tv-shows" ? "TV Shows" : "Talks" }}
+      <span style="font-weight: normal">
+        A Random {{ routeType === "tv-shows" ? "TV Show" : "Talk" }} Episode
+        {{ randomShowFirstEpisodeL2 ? "in " : "" }}
+      </span>
+      <span style="font-weight: bold; color: white">
+        {{
+          randomShowFirstEpisodeL2
+            ? `${randomShowFirstEpisodeL2.name} (${randomShowFirstEpisodeL2.code})`
+            : ""
+        }}
+      </span>
     </div>
     <div class="text-center pt-5 pb-5" v-if="!randomShowFirstEpisode">
       <Loader :sticky="true" message="Getting shows..." />
@@ -83,13 +92,18 @@ export default {
       if (typeof this.$store.state.settings.adminMode !== "undefined")
         return this.$store.state.settings.adminMode;
     },
-    randomShowFirstEpisodeL2Code() {
+    randomShowFirstEpisodeL2() {
       if (this.randomShowFirstEpisode) {
-        let l2Id = this.randomShowFirstEpisode.l2
-        let l2 = this.$languages.getById(l2Id)
-        return l2.code
+        let l2Id = this.randomShowFirstEpisode.l2;
+        let l2 = this.$languages.getById(l2Id);
+        return l2;
       }
-    }
+    },
+    randomShowFirstEpisodeL2Code() {
+      if (this.randomShowFirstEpisodeL2) {
+        return this.randomShowFirstEpisodeL2.code;
+      }
+    },
   },
   mounted() {
     this.loadRandomShow();
@@ -101,7 +115,7 @@ export default {
   },
   methods: {
     l1Code() {
-      return Helper.l1Code(...arguments)
+      return Helper.l1Code(...arguments);
     },
     async removeEpisode(randomShowFirstEpisode) {
       let response = await axios.delete(
