@@ -90,6 +90,14 @@ export default {
     }
   },
   methods: {
+    async removeEpisode(randomShowFirstEpisode) {
+      let response = await axios.delete(
+        `${Config.wiki}items/youtube_videos/${randomShowFirstEpisode.id}`
+      );
+      if (response) {
+        this.loadRandomShow();
+      }
+    },
     async loadRandomShow() {
       let randomShow = this.getRandomShow();
       if (randomShow) {

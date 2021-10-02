@@ -134,14 +134,6 @@ export default {
     },
   },
   methods: {
-    async removeEpisode(randomShowFirstEpisode) {
-      let response = await axios.delete(
-        `${Config.wiki}items/youtube_videos/${randomShowFirstEpisode.id}`
-      );
-      if (response) {
-        this.loadRandomShow();
-      }
-    },
     async getShowsOverNetwork() {
       let langId = this.$l2.id;
       let type = this.routeType.replace("-", "_");
