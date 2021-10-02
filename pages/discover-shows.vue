@@ -12,11 +12,12 @@
     <SocialHead
       title="Discover TV Shows Across Languages | PanLingo"
       description="Watch TV shows across languages at random and be surprised!"
+      image="/img/thumbnail-discover-shows.jpg"
     />
     <div class="container-fluid">
       <div
         class="row bg-dark text-white pt-2 pb-2 text-left"
-        style="overflow: visible"
+        style="overflow: visible; height: 54px"
       >
         <div class="col-sm-12 d-flex" style="overflow: visible">
           <div class="mr-3 d-flex align-items-center">

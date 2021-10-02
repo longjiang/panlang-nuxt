@@ -21,7 +21,12 @@
         <div class="row pt-5 mb-5">
           <div class="col-sm-12">
             <div class="z2h-logo" style="line-height: 1.2">
-              <img src="/img/logo-panlingo-white.svg" alt="PanLingo" style="width: 17rem" data-not-lazy>
+              <img
+                src="/img/logo-panlingo-white.svg"
+                alt="PanLingo"
+                style="width: 17rem"
+                data-not-lazy
+              />
               <div class="mt-3" style="font-weight: 300; font-size: 1.6rem">
                 Learn all languages of the world. Fully open-source.
               </div>
@@ -81,12 +86,12 @@
           </div>
           <div class="col-sm-6 mb-5">
             <div class="home-card text-center">
-              <h5 class="mb-3">Choose Languages from A List</h5>
-              <router-link to="/language-icons">
+              <h5 class="mb-3">Discover TV Shows Across Languages</h5>
+              <router-link to="/discover-shows">
                 <div>
                   <img
-                    src="/img/thumbnail-language-icons.jpg"
-                    alt="Faces of Languages"
+                    src="/img/thumbnail-discover-shows.jpg"
+                    alt="Discover TV Shows Across Languages"
                     class="rounded shadow img-fluid"
                   />
                 </div>
@@ -110,17 +115,24 @@
             </div>
           </div>
           <div class="col-sm-6 mb-5">
-            <div class="home-card text-center">
-              <h5 class="mb-3">Compare Online Translators</h5>
-              <router-link to="/translators">
-                <div>
-                  <img
-                    src="/img/thumbnail-translators.jpg"
-                    alt="Faces of Languages"
-                    class="rounded shadow img-fluid"
-                  />
-                </div>
-              </router-link>
+            <div class="home-card">
+              <h5 class="mb-3 text-center">Other Interlingual Features</h5>
+              <ul>
+                <li class="mt-1 mb-1">
+                  <router-link to="/language-icons">
+                    <b>Face of the Language</b>
+                  </router-link>
+                  – Images of famous people who speak one of the 300 languages
+                  listed.
+                </li>
+                <li class="mt-1 mb-1">
+                  <router-link to="/translators">
+                    <b>Compare Online Translators</b>
+                  </router-link>
+                  – Find out which online translator (e.g. Google Translate) has
+                  the ability to translate which language.
+                </li>
+              </ul>
             </div>
           </div>
         </div>

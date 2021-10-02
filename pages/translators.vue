@@ -12,7 +12,7 @@
     <SocialHead
       title="Online Translators | PanLingo"
       description="Check the availability of online translators for any given language."
-      image="/img/thumbnail-language-icons.jpg"
+      image="/img/thumbnail-translators.jpg"
     />
     <div class="container-fluid">
       <div
@@ -42,7 +42,7 @@
     <div class="container" v-if="translators">
       <div class="row">
         <div class="col-sm-12 pt-5 pb-5 text-center">
-          <h3>Online Translators</h3>
+          <h3>Compare Online Translators</h3>
           <p>
             {{ filteredTranslators.length }} translators,
             {{ filteredLangs.length }} languages.
