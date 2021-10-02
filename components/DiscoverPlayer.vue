@@ -1,7 +1,7 @@
 <template>
   <div class="widget widget-dark mb-5" style="max-width: 70vh; margin: 0 auto">
     <div class="widget-title">
-      Discover {{ $l2.name }}
+      Discover {{ $l2 ? $l2.name : "" }}
       {{ routeType === "tv-shows" ? "TV Shows" : "Talks" }}
     </div>
     <div class="text-center pt-5 pb-5" v-if="!randomShowFirstEpisode">
@@ -22,6 +22,8 @@
         :to="{
           name: 'youtube-view',
           params: {
+            l1: $l1 ? $l1.code : l1Code(randomShowFirstEpisodeL2Code),
+            l2: $l2 ? $l2.code : randomShowFirstEpisodeL2Code,
             youtube_id: randomShowFirstEpisode.youtube_id,
           },
           query: {
@@ -49,6 +51,7 @@
 </template>
 
 <script>
+import Helper from "@/lib/helper";
 import Config from "@/lib/config";
 export default {
   props: {
@@ -80,6 +83,13 @@ export default {
       if (typeof this.$store.state.settings.adminMode !== "undefined")
         return this.$store.state.settings.adminMode;
     },
+    randomShowFirstEpisodeL2Code() {
+      if (this.randomShowFirstEpisode) {
+        let l2Id = this.randomShowFirstEpisode.l2
+        let l2 = this.$languages.getById(l2Id)
+        return l2.code
+      }
+    }
   },
   mounted() {
     this.loadRandomShow();
@@ -87,9 +97,12 @@ export default {
   watch: {
     shows() {
       this.loadRandomShow();
-    }
+    },
   },
   methods: {
+    l1Code() {
+      return Helper.l1Code(...arguments)
+    },
     async removeEpisode(randomShowFirstEpisode) {
       let response = await axios.delete(
         `${Config.wiki}items/youtube_videos/${randomShowFirstEpisode.id}`
@@ -131,7 +144,7 @@ export default {
       }
     },
     async getFirstEpisodeOfShow(showId, showType) {
-      let url = `${Config.wiki}items/youtube_videos?filter[l2][eq]=${this.$l2.id}&filter[${showType}][eq]=${showId}&fields=youtube_id,id`;
+      let url = `${Config.wiki}items/youtube_videos?filter[${showType}][eq]=${showId}&fields=youtube_id,id,l2`;
       let response = await axios.get(url);
 
       if (response.data && response.data.data.length > 0) {
