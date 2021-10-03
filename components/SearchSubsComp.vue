@@ -554,7 +554,7 @@ export default {
           : false,
         this.tvShow ? this.tvShow.id : undefined,
         this.exact,
-        true,
+        true, // apostrophe
         this.$l2.han // convertToSimplified
       );
 
