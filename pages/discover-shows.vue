@@ -78,7 +78,7 @@ export default {
   async mounted() {
     let lastShowId = await this.getLastShowId();
     this.lastShowId = lastShowId;
-    let randomIds = this.generateRandomIds(lastShowId, 30);
+    let randomIds = this.generateRandomIds(lastShowId, 100);
     let randomShows = await this.loadRandomShowsMatchingIds(randomIds, this.adminMode);
     this.randomShows = randomShows
   },

@@ -140,7 +140,7 @@
           <div class="col-sm-12">
             <div class="home-card">
               <h5 class="text-center">
-                All {{ $languages.l1s.length }} Languages
+                All 7,408 Languages
               </h5>
               <LanguageSwitch class="mt-3" />
               <h6 class="text-center mt-4">Some Popular Languages</h6>
