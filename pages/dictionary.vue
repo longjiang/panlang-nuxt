@@ -308,7 +308,7 @@ export default {
           }
         }
       }
-      this.sW = sW;
+      this.sW = sW.sort((a, b) => a.head.localeCompare(b.head));
     },
     saved() {
       return (
