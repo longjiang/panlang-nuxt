@@ -42,7 +42,7 @@
           <span v-if="word.hanja" class="wordlist-item-byeonggi">
             {{ word.hanja }}
           </span>
-          <span v-if="word.definitions" class="wordlist-item-l1">
+          <span v-if="word.definitions && !hideDefinitions" class="wordlist-item-l1">
             {{
               word.definitions.filter((def) => !def.startsWith("CL")).join(", ")
             }}
@@ -120,6 +120,9 @@ export default {
     skin: {
       default: "light",
     },
+    hideDefinitions: {
+      default: false
+    }
   },
   computed: {
     $l1() {
