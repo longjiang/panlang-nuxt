@@ -79,6 +79,7 @@
                     src="/img/thumbnail-language-map.jpg"
                     alt="World Language Map"
                     class="rounded shadow img-fluid"
+                    data-not-lazy
                   />
                 </div>
               </router-link>
@@ -93,6 +94,7 @@
                     src="/img/thumbnail-discover-shows.jpg"
                     alt="Discover TV Shows Across Languages"
                     class="rounded shadow img-fluid"
+                    data-not-lazy
                   />
                 </div>
               </router-link>
@@ -109,6 +111,7 @@
                     src="/img/thumbnail-compare-languages.jpg"
                     alt="Compare phrases across languages on a map"
                     class="rounded shadow img-fluid"
+                    data-not-lazy
                   />
                 </div>
               </router-link>
