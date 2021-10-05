@@ -136,80 +136,78 @@
             </div>
           </div>
         </div>
-        <div class="row mb-5">
-          <div class="col-sm-12">
-            <div class="home-card">
-              <h5 class="text-center">
-                All 7,408 Languages
-              </h5>
-              <LanguageSwitch class="mt-3" />
-              <h6 class="text-center mt-4">Some Popular Languages</h6>
-              <LanguageList
-                :codes="[
-                  'ar',
-                  'az',
-                  'bn',
-                  'br',
-                  'bs',
-                  'bul',
-                  'cat',
-                  'ces',
-                  'cmn',
-                  'cy',
-                  'dan',
-                  'de',
-                  'el',
-                  'en',
-                  'epo',
-                  'es',
-                  'fa',
-                  'fin',
-                  'fr',
-                  'gle',
-                  'glg',
-                  'hak',
-                  'he',
-                  'hi',
-                  'hun',
-                  'hr',
-                  'hye',
-                  'id',
-                  'isl',
-                  'it',
-                  'ja',
-                  'ko',
-                  'lat',
-                  'lav',
-                  'lit',
-                  'lzh',
-                  'msa',
-                  'nan',
-                  'nl',
-                  'no',
-                  'pa',
-                  'pl',
-                  'pt',
-                  'ron',
-                  'ru',
-                  'sr',
-                  'swe',
-                  'ta',
-                  'th',
-                  'tl',
-                  'tlh',
-                  'tr',
-                  'uk',
-                  'vi',
-                  'yue',
-                  'zh',
-                ]"
-                class="mt-4"
-                :sort="true"
-              />
+        <client-only>
+          <div class="row mb-5">
+            <div class="col-sm-12">
+              <div class="home-card">
+                <h5 class="text-center">All 7,408 Languages</h5>
+                <LanguageSwitch class="mt-3" />
+                <h6 class="text-center mt-4">Some Popular Languages</h6>
+                <LanguageList
+                  :codes="[
+                    'ar',
+                    'az',
+                    'bn',
+                    'br',
+                    'bs',
+                    'bul',
+                    'cat',
+                    'ces',
+                    'cmn',
+                    'cy',
+                    'dan',
+                    'de',
+                    'el',
+                    'en',
+                    'epo',
+                    'es',
+                    'fa',
+                    'fin',
+                    'fr',
+                    'gle',
+                    'glg',
+                    'hak',
+                    'he',
+                    'hi',
+                    'hun',
+                    'hr',
+                    'hye',
+                    'id',
+                    'isl',
+                    'it',
+                    'ja',
+                    'ko',
+                    'lat',
+                    'lav',
+                    'lit',
+                    'lzh',
+                    'msa',
+                    'nan',
+                    'nl',
+                    'no',
+                    'pa',
+                    'pl',
+                    'pt',
+                    'ron',
+                    'ru',
+                    'sr',
+                    'swe',
+                    'ta',
+                    'th',
+                    'tl',
+                    'tlh',
+                    'tr',
+                    'uk',
+                    'vi',
+                    'yue',
+                    'zh',
+                  ]"
+                  class="mt-4"
+                  :sort="true"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <client-only>
           <div :class="{ 'row mb-5': true, 'd-none': !hasDashboard }">
             <div class="col-sm-12">
               <div class="home-card mb-0" style="padding: 1rem">
@@ -224,15 +222,15 @@
               </div>
             </div>
           </div>
-        </client-only>
-        <div class="row mb-5">
-          <div class="col-sm-12">
-            <div class="home-card">
-              <h5 class="text-center">Languages by World GDP</h5>
-              <LazyLanguagesGDP />
+          <div class="row mb-5">
+            <div class="col-sm-12">
+              <div class="home-card">
+                <h5 class="text-center">Languages by World GDP</h5>
+                <LazyLanguagesGDP />
+              </div>
             </div>
           </div>
-        </div>
+        </client-only>
       </div>
     </div>
   </div>
