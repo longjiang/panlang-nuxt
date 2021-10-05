@@ -29,10 +29,8 @@
                 src="/img/logo-panlingo-white.svg"
                 alt="PanLingo"
                 class="site-top-bar-logo"
-                style="
-                  display: inline-block;
-                  height: 1.3rem;
-                "
+                style="display: inline-block; height: 1.3rem"
+                data-not-lazy
               />
             </router-link>
             <router-link
@@ -45,12 +43,13 @@
         </div>
       </div>
     </div>
-
     <div class="container">
       <div class="row">
         <div class="col-sm-12 pt-5 pb-5 text-center">
           <h3>Face of the Language</h3>
-          <p>{{ filteredLangs.length }} languages are listed.</p>
+          <client-only>
+            <p>{{ filteredLangs.length }} languages are listed.</p>
+          </client-only>
 
           <b-input-group class="mt-5 mb-3 input-group-ghost-dark">
             <b-form-input
@@ -66,67 +65,69 @@
           </b-input-group>
         </div>
       </div>
-      <div class="row">
-        <div
-          class="col-sm-4 col-md-3 col-lg-3 lang-item-column text-left p-4"
-          v-for="lang in filteredLangs"
-          :key="`lang-${lang.id}`"
-        >
-          <div class="lang-item">
-            <router-link :to="`/en/${lang.code}/`">
-              <img
-                :src="`/img/logo-square/${lang.code}.jpeg`"
-                class="lang-item-logo"
-              />
-            </router-link>
-            <div class="lang-item-description mt-2">
-              <span v-if="lang.logoDesc">
-                {{ lang.logoDesc.replace(/ /g, " ") }}, a user of
-                <router-link
-                  :to="`/en/${lang.code}/`"
-                  class="link-unstyled font-weight-bold"
+      <client-only>
+        <div class="row">
+          <div
+            class="col-sm-4 col-md-3 col-lg-3 lang-item-column text-left p-4"
+            v-for="lang in filteredLangs"
+            :key="`lang-${lang.id}`"
+          >
+            <div class="lang-item">
+              <router-link :to="`/en/${lang.code}/`">
+                <img
+                  :src="`/img/logo-square/${lang.code}.jpeg`"
+                  class="lang-item-logo"
+                />
+              </router-link>
+              <div class="lang-item-description mt-2">
+                <span v-if="lang.logoDesc">
+                  {{ lang.logoDesc.replace(/ /g, " ") }}, a user of
+                  <router-link
+                    :to="`/en/${lang.code}/`"
+                    class="link-unstyled font-weight-bold"
+                  >
+                    {{ lang.name }} ({{ lang.code }})
+                  </router-link>
+                  .
+                </span>
+                <span v-else>
+                  A user of
+                  <router-link
+                    :to="`/en/${lang.code}/`"
+                    class="link-unstyled font-weight-bold"
+                  >
+                    {{ lang.name }} ({{ lang.code }})
+                  </router-link>
+                  .
+                </span>
+                <a
+                  v-if="wikipedia(lang)"
+                  :href="wikipedia(lang)"
+                  target="_blank"
+                  class="lang-item-code link-unstyled"
                 >
-                  {{ lang.name }} ({{ lang.code }})
-                </router-link>
-                .
-              </span>
-              <span v-else>
-                A user of
-                <router-link
-                  :to="`/en/${lang.code}/`"
-                  class="link-unstyled font-weight-bold"
-                >
-                  {{ lang.name }} ({{ lang.code }})
-                </router-link>
-                .
-              </span>
-              <a
-                v-if="wikipedia(lang)"
-                :href="wikipedia(lang)"
-                target="_blank"
-                class="lang-item-code link-unstyled"
-              >
-                <i class="fab fa-wikipedia-w"></i>
-              </a>
+                  <i class="fab fa-wikipedia-w"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row mt-5 mb-5">
-        <div class="col-sm-12 text-center">
-          <h4 class="mb-3">World Map of Languages</h4>
-          <router-link to="/language-map">
-            <div>
-              <img
-                src="/img/thumbnail-language-map.jpg"
-                alt="World Language Map"
-                class="rounded shadow img-fluid"
-                style="max-width: 40rem"
-              />
-            </div>
-          </router-link>
+        <div class="row mt-5 mb-5">
+          <div class="col-sm-12 text-center">
+            <h4 class="mb-3">World Map of Languages</h4>
+            <router-link to="/language-map">
+              <div>
+                <img
+                  src="/img/thumbnail-language-map.jpg"
+                  alt="World Language Map"
+                  class="rounded shadow img-fluid"
+                  style="max-width: 40rem"
+                />
+              </div>
+            </router-link>
+          </div>
         </div>
-      </div>
+      </client-only>
     </div>
     <footer class="bg-dark mt-5 p-5" style="z-index: -1">
       <div class="text-center" style="line-height: 1.2; font-size: 1.1em">
@@ -151,32 +152,37 @@ export default {
   }),
   computed: {
     english() {
-      return this.$languages.l1s.find((language) => language.code === "en");
+      if (this.$languages)
+        return this.$languages.l1s.find((language) => language.code === "en");
     },
     filteredLangs() {
-      let languages = this.$languages.l1s;
-      languages = languages
-        .filter((l) => {
-          if (!(l.logo && l.logo !== "")) return false;
-          if (this.keyword) {
-            let keyword = this.keyword.toLowerCase();
-            if (l["iso639-1"].includes(keyword)) return true;
-            if (l["iso639-3"].includes(keyword)) return true;
-            if (l["glottologId"].includes(keyword)) return true;
-            if (l["glottologFamilyId"].includes(keyword)) return true;
-            if (l["glottologParentId"].includes(keyword)) return true;
-            if (l.name.toLowerCase().includes(keyword)) return true;
-            if (l.logoDesc.toLowerCase().includes(keyword)) return true;
-            let countries = l.country.filter((c) =>
-              c.name.toLowerCase().includes(keyword)
-            );
-            if (countries.length > 0) return true;
-            return false;
-          }
-          return true;
-        })
-        .sort((a, b) => a.name.localeCompare(b.name));
-      return languages;
+      if (this.$languages) {
+        let languages = this.$languages.l1s;
+        languages = languages
+          .filter((l) => {
+            if (!(l.logo && l.logo !== "")) return false;
+            if (this.keyword) {
+              let keyword = this.keyword.toLowerCase();
+              if (l["iso639-1"].includes(keyword)) return true;
+              if (l["iso639-3"].includes(keyword)) return true;
+              if (l["glottologId"].includes(keyword)) return true;
+              if (l["glottologFamilyId"].includes(keyword)) return true;
+              if (l["glottologParentId"].includes(keyword)) return true;
+              if (l.name.toLowerCase().includes(keyword)) return true;
+              if (l.logoDesc.toLowerCase().includes(keyword)) return true;
+              let countries = l.country.filter((c) =>
+                c.name.toLowerCase().includes(keyword)
+              );
+              if (countries.length > 0) return true;
+              return false;
+            }
+            return true;
+          })
+          .sort((a, b) => a.name.localeCompare(b.name));
+        return languages;
+      } else {
+        return [];
+      }
     },
   },
   methods: {
