@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="row" v-if="!hasDashboard">
+        <div class="row">
           <div class="col-sm-12">
             <div class="intro-text mb-5 text-center">
               <p class="mb-0" style="font-size: 1.1em">
@@ -58,7 +58,7 @@
                 </a>
                 , and follow us on
                 <a
-                  href="https://twitter.com/zerotoherolang"
+                  href="https://twitter.com/panlingo"
                   target="_blank"
                   class="link-unstyled"
                   style="text-decoration: underline"
@@ -308,7 +308,6 @@ export default {
   padding: 2rem;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid hsla(0deg, 0%, 30%, 0.7);
   border-radius: 1rem;
   text-align: left;
 }

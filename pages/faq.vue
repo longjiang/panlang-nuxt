@@ -92,8 +92,8 @@
                   If the above two options don't work for you, you can contact
                   us to have some all of your videos "blacklisted" and never
                   again show up on this website. Please contact us via Twitter
-                  <a href="https://twitter.com/zerotoherolang">
-                    @zerotoherolang
+                  <a href="https://twitter.com/panlingo">
+                    @panlingo
                   </a>
                   , either by direct messaging, post reply, or mention. For
                   other ways to reach us, see the

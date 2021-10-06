@@ -40,8 +40,8 @@
                     This website is built on
                     <code>Vue.js</code>
                     and is fully open source. Check out the code on GitHub at
-                    <a href="https://github.com/longjiang/panglang-nuxt">
-                      https://github.com/longjiang/panglang-nuxt
+                    <a href="https://github.com/longjiang/panlang-nuxt">
+                      https://github.com/longjiang/panlang-nuxt
                     </a>
                     .
                   </p>
