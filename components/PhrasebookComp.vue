@@ -83,6 +83,7 @@
 
           <Annotate
             :phonetics="!phraseObj.pronunciation"
+            :popup="false"
             :class="{ 'hide-phonetics': hidePhonetics }"
           >
             <h4
