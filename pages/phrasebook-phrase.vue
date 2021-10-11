@@ -54,13 +54,17 @@
                     :buttons="false"
                     v-if="phraseObj && phraseObj.phrase"
                     @textChanged="textChanged"
+                    :class="{ 'hide-phonetics': hidePhonetics }"
                   >
                     <span>{{ phraseObj.phrase }}</span>
                   </Annotate>
                 </div>
               </h2>
               <p
-                class="text-center mt-1"
+                :class="{
+                  'text-center mt-1': true,
+                  transparent: hideDefinitions,
+                }"
                 v-if="phraseObj"
                 :contenteditable="$adminMode"
                 @blur="saveTranslation"
@@ -119,10 +123,10 @@
                 class="text-center"
                 :key="`word-heading-${word.id}`"
               >
-                <LazyEntryHeader :entry="word" />
+                <LazyEntryHeader :entry="word" :hidePhonetics="hidePhonetics" />
                 <DefinitionsList
                   v-if="word.definitions"
-                  class="mt-3"
+                  :class="{ 'mt-3': true, transparent: hideDefinitions }"
                   :definitions="word.definitions"
                 ></DefinitionsList>
                 <EntryExternal
@@ -139,6 +143,15 @@
                   class="focus-exclude mt-4 mb-5"
                   :entry="word"
                 ></EntryCourseAd>
+              </div>
+              <div class="mt-3 text-center" style="font-size: 0.9em">
+                <hr />
+                <b-form-checkbox v-model="hideDefinitions" class="d-inline">
+                  Hide defs
+                </b-form-checkbox>
+                <b-form-checkbox v-model="hidePhonetics" class="ml-2 d-inline">
+                  Hide phonetics
+                </b-form-checkbox>
               </div>
             </div>
           </div>
@@ -213,6 +226,8 @@ export default {
       phraseObj: undefined,
       words: undefined,
       word: undefined,
+      hideDefinitions: false,
+      hidePhonetics: false,
       dictionaryMatchCompleted: false,
       images: [],
       params: {},
@@ -625,5 +640,9 @@ export default {
 
 .remove-btn {
   color: #999;
+}
+
+::v-deep .hide-phonetics .word-block-pinyin {
+  opacity: 0;
 }
 </style>
