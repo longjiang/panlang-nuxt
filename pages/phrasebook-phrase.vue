@@ -16,6 +16,14 @@
               'col-sm-12 pt-4': !wide,
             }"
           >
+            <div class="mb-3 text-center" style="font-size: 0.9em">
+              <b-form-checkbox v-model="hideDefinitions" class="d-inline">
+                Hide defs
+              </b-form-checkbox>
+              <b-form-checkbox v-model="hidePhonetics" class="ml-2 d-inline">
+                Hide phonetics
+              </b-form-checkbox>
+            </div>
             <div
               class="text-center"
               v-if="phrasebook && phrasebook.phrases && phraseId && phraseObj"
@@ -143,15 +151,6 @@
                   class="focus-exclude mt-4 mb-5"
                   :entry="word"
                 ></EntryCourseAd>
-              </div>
-              <div class="mt-3 text-center" style="font-size: 0.9em">
-                <hr />
-                <b-form-checkbox v-model="hideDefinitions" class="d-inline">
-                  Hide defs
-                </b-form-checkbox>
-                <b-form-checkbox v-model="hidePhonetics" class="ml-2 d-inline">
-                  Hide phonetics
-                </b-form-checkbox>
               </div>
             </div>
           </div>
@@ -307,7 +306,25 @@ export default {
       return this.params.wide && ["lg", "xl", "xxl"].includes(this.$mq);
     },
   },
+  watch: {
+    hideDefinitions() {
+      this.$store.commit("settings/SET_HIDE_DEFINITIONS", this.hideDefinitions);
+    },
+    hidePhonetics() {
+      this.$store.commit("settings/SET_HIDE_PHONETICS", this.hidePhonetics);
+    },
+  },
   mounted() {
+    if (typeof this.$store.state.settings !== "undefined") {
+      this.hideDefinitions = this.$store.state.settings.hideDefinitions;
+      this.hidePhonetics = this.$store.state.settings.hidePhonetics;
+    }
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "settings/LOAD_SETTINGS") {
+        this.hideDefinitions = this.$store.state.settings.hideDefinitions;
+        this.hidePhonetics = this.$store.state.settings.hidePhonetics;
+      }
+    });
     let phrasebook = this.getPhrasebookFromStore();
     if (phrasebook) {
       if (!phrasebook.phrases) {
