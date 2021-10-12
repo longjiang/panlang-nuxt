@@ -1,11 +1,24 @@
 <template>
   <div class="hide-defs-toggle">
-    <b-form-checkbox v-model="hideDefinitions" class="d-inline">
-      Hide defs
-    </b-form-checkbox>
-    <b-form-checkbox v-model="hidePhonetics" class="ml-2 d-inline">
-      Hide phonetics
-    </b-form-checkbox>
+    <b-button
+      variant="unstyled"
+      size="sm"
+      @click="hideDefinitions = !hideDefinitions"
+      class="mr-2"
+    >
+      <i class="far fa-eye-slash" v-if="hideDefinitions"></i>
+      <i class="far fa-eye" v-else></i>
+      <span class="ml-1">Definitions</span>
+    </b-button>
+    <b-button
+      variant="unstyled"
+      size="sm"
+      @click="hidePhonetics = !hidePhonetics"
+    >
+      <i class="far fa-eye-slash" v-if="hidePhonetics"></i>
+      <i class="far fa-eye" v-else></i>
+      <span class="ml-1">Phonetics</span>
+    </b-button>
   </div>
 </template>
 
@@ -44,7 +57,10 @@ export default {
 
 <style lang="scss" scoped>
 .hide-defs-toggle {
-  font-size: 0.8em;
-  line-height: 2em;
+  button {
+    font-size: 0.8em;
+    color: #666;
+    padding: 0;
+  }
 }
 </style>
