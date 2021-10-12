@@ -20,9 +20,11 @@ export default {
   watch: {
     hideDefinitions() {
       this.$store.commit("settings/SET_HIDE_DEFINITIONS", this.hideDefinitions);
+      this.$emit("hideDefinitions", this.hideDefinitions);
     },
     hidePhonetics() {
       this.$store.commit("settings/SET_HIDE_PHONETICS", this.hidePhonetics);
+      this.$emit("hidePhonetics", this.hidePhonetics);
     },
   },
   mounted() {

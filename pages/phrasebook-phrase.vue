@@ -16,7 +16,12 @@
               'col-sm-12 pt-4': !wide,
             }"
           >
-            <LazyHideDefs class="mb-3 text-center" style="font-size: 0.9em" />
+            <LazyHideDefs
+              class="mb-3 text-center"
+              style="font-size: 0.9em"
+              @hideDefinitions="hideDefinitions = arguments[0]"
+              @hidePhonetics="hidePhonetics = arguments[0]"
+            />
             <div
               class="text-center"
               v-if="phrasebook && phrasebook.phrases && phraseId && phraseObj"
