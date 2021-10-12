@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="hide-defs-toggle">
     <b-form-checkbox v-model="hideDefinitions" class="d-inline">
       Hide defs
     </b-form-checkbox>
@@ -42,5 +42,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.hide-defs-toggle {
+  font-size: 0.8em;
+  line-height: 2em;
+}
 </style>

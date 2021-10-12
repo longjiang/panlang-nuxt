@@ -18,7 +18,6 @@
           >
             <LazyHideDefs
               class="mb-3 text-center"
-              style="font-size: 0.9em"
               @hideDefinitions="hideDefinitions = arguments[0]"
               @hidePhonetics="hidePhonetics = arguments[0]"
             />
@@ -56,10 +55,10 @@
               <h2 class="text-center mb-0 font-weight-normal">
                 <div class="d-inline-block">
                   <Annotate
-                    :phonetics="!phraseObj.pronunciation"
-                    :buttons="false"
                     v-if="phraseObj && phraseObj.phrase"
                     @textChanged="textChanged"
+                    :phonetics="!phraseObj.pronunciation"
+                    :buttons="false"
                     :class="{ 'hide-phonetics': hidePhonetics }"
                   >
                     <span>{{ phraseObj.phrase }}</span>
