@@ -78,6 +78,8 @@
 </template>
 
 <script>
+import Helper from '@/lib/helper'
+
 export default {
   data() {
     return {
@@ -86,14 +88,14 @@ export default {
       musicShow: undefined,
       moviesShow: undefined,
       newsShow: undefined,
-      allVideosChecked: true,
-      allTVShowsChecked: true,
-      allTalksChecked: true,
+      allVideosChecked: false,
+      allTVShowsChecked: false,
+      allTalksChecked: false,
       tvShowFilter: "all",
       talkFilter: "all",
-      musicChecked: true,
-      newsChecked: true,
-      moviesChecked: true,
+      musicChecked: false,
+      newsChecked: false,
+      moviesChecked: false,
       tvShowChecked: [],
       talkChecked: [],
     };
@@ -124,13 +126,11 @@ export default {
   },
   mounted() {
     if (typeof this.$store.state.settings !== "undefined") {
-      this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
-      this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+      this.loadSettings();
     }
     this.unsubscribe = this.$store.subscribe((mutation, state) => {
       if (mutation.type === "settings/LOAD_SETTINGS") {
-        this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
-        this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+        this.loadSettings();
       }
     });
     this.loadShows();
@@ -167,17 +167,51 @@ export default {
     },
   },
   methods: {
+    loadSettings() {
+      this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
+      this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+      console.log('filters loaded: ', this.tvShowFilter, this.talkFilter)
+      this.allVideosChecked =
+        this.tvShowFilter === "all" && this.talkFilter === "all";
+      if (!this.allVideosChecked) {
+        this.allTVShowsChecked = this.tvShowFilter === "all";
+        this.allTalksChecked = this.talkFilter === "all";
+        if (!this.allTVShowsChecked) {
+          this.checkSpecials()
+          this.tvShowChecked = this.tvShowFilter
+        }
+        if (!this.allTalksChecked) {
+          this.checkSpecials()
+          this.talkChecked = this.talkFilter
+        }
+      }
+    },
+    checkSpecials() {
+      if (this.musicShow) {
+        this.musicChecked = this.tvShowFilter.includes(Number(this.musicShow.id));
+      }
+      if (this.moviesShow) {
+        this.moviesChecked = this.tvShowFilter.includes(Number(this.moviesShow.id));
+      }
+      if (this.newsShow) {
+        this.newsChecked = this.talkFilter.includes(Number(this.newsShow.id));
+      }
+    },
     updateSettings() {
-      let tvShowFilter = JSON.stringify(this.getTvShowFilter());
-      let talkFilter = JSON.stringify(this.getTalkFilter());
-      if (this.tvShowFilter !== tvShowFilter) {
-        this.tvShowFilter = tvShowFilter;
-        console.log("tvShowFilter", tvShowFilter);
-      }
-      if (this.talkFilter !== talkFilter) {
-        this.talkFilter = talkFilter;
-        console.log("talkFilter", talkFilter);
-      }
+      let tvShowFilter = this.getTvShowFilter();
+      let talkFilter = this.getTalkFilter();
+
+      this.tvShowFilter = tvShowFilter;
+      console.log("Updating settings: tvShowFilter", tvShowFilter);
+      this.$store.commit("settings/SET_L2_SETTINGS", {
+        tvShowFilter: this.tvShowFilter,
+      });
+
+      this.talkFilter = talkFilter;
+      console.log("Updating settings: talkFilter", talkFilter);
+      this.$store.commit("settings/SET_L2_SETTINGS", {
+        talkFilter: this.talkFilter,
+      });
     },
     getTvShowFilter() {
       if (this.allVideosChecked) return "all";
@@ -190,14 +224,14 @@ export default {
           return this.tvShows.map((s) => s.id);
         }
       }
-      let tvShowFilter = [];
+      let tvShowFilter = [].concat(this.tvShowChecked);
       if (this.musicChecked) {
         if (this.musicShow) tvShowFilter.push(this.musicShow.id);
       }
       if (this.moviesChecked) {
         if (this.moviesShow) tvShowFilter.push(this.moviesShow.id);
       }
-      return tvShowFilter;
+      return Helper.unique(tvShowFilter);
     },
     getTalkFilter() {
       if (this.allVideosChecked) return "all";
@@ -209,11 +243,11 @@ export default {
           return this.talks.map((s) => s.id);
         }
       }
-      let talkFilter = [];
+      let talkFilter = [].concat(this.talkChecked);
       if (this.newsChecked) {
         if (this.newsShow) talkFilter.push(this.newsShow.id);
       }
-      return talkFilter;
+      return Helper.unique(talkFilter);
     },
     showModal() {
       this.$refs["show-filter-modal"].show();
@@ -232,6 +266,7 @@ export default {
       if (this.talks) {
         this.newsShow = this.talks.find((s) => s.title === "News");
       }
+      this.checkSpecials()
     },
   },
 };
