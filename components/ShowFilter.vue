@@ -128,17 +128,21 @@ export default {
     if (typeof this.$store.state.settings !== "undefined") {
       this.loadSettings();
     }
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+    this.unsubscribeSettings = this.$store.subscribe((mutation, state) => {
       if (mutation.type === "settings/LOAD_SETTINGS") {
         this.loadSettings();
       }
     });
     this.loadShows();
-    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+    this.unsubscribeShows = this.$store.subscribe((mutation, state) => {
       if (mutation.type.startsWith("shows")) {
         this.loadShows();
       }
     });
+  },
+  beforeDestroy() {
+    this.unsubscribeSettings();
+    this.unsubscribeShows();
   },
   watch: {
     allVideosChecked() {
@@ -188,13 +192,19 @@ export default {
     },
     checkSpecials() {
       if (this.musicShow) {
-        this.musicChecked = this.tvShowFilter.includes(Number(this.musicShow.id));
+        let musicId = Number(this.musicShow.id)
+        this.musicChecked = this.tvShowFilter.includes(musicId);
+        this.tvShowChecked = this.tvShowChecked.filter(id => id !== musicId)
       }
       if (this.moviesShow) {
-        this.moviesChecked = this.tvShowFilter.includes(Number(this.moviesShow.id));
+        let moviesId = Number(this.moviesShow.id)
+        this.moviesChecked = this.tvShowFilter.includes(moviesId);
+        this.tvShowChecked = this.tvShowChecked.filter(id => id !== moviesId)
       }
       if (this.newsShow) {
+        let newsId = Number(this.moviesShow.id)
         this.newsChecked = this.talkFilter.includes(Number(this.newsShow.id));
+        this.talkChecked = this.talkChecked.filter(id => id !== newsId)
       }
     },
     updateSettings() {
