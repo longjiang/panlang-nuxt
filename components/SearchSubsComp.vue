@@ -69,113 +69,14 @@
           />
           {{ hitIndex + 1 }} of {{ hits.length }}
         </span>
-        <b-dropdown
-          class="playlist-dropdown"
+        <b-button
+          size="sm"
           :variant="skin === 'dark' ? 'ghost-dark-no-bg' : 'gray'"
-          :toggle-class="`btn btn-sm playlist-dropdown-toggle ml-1 mr-1 ${
-            skin === 'dark' ? 'btn-ghost-dark-no-bg' : 'border-gray'
-          }`"
-          boundary="viewport"
-          no-caret
+          class="playlist-toggle ml-1 mr-1"
+          @click="showPlaylistModal"
         >
-          <template #button-content><i class="fa fa-stream" /></template>
-          <b-dropdown-item>
-            <button
-              :class="{
-                'btn btn-small': true,
-                'bg-dark': sort === 'length',
-                'text-white': sort === 'length',
-              }"
-              @click.stop.prevent="sort = 'length'"
-            >
-              Sort By Length
-            </button>
-            <button
-              :class="{
-                'btn btn-small': true,
-                'bg-dark': sort === 'left',
-                'text-white': sort === 'left',
-              }"
-              @click.stop.prevent="sort = 'left'"
-            >
-              Sort Left
-            </button>
-            <button
-              :class="{
-                'btn btn-small': true,
-                'bg-dark': sort === 'right',
-                'text-white': sort === 'right',
-              }"
-              @click.stop.prevent="sort = 'right'"
-            >
-              Sort Right
-            </button>
-          </b-dropdown-item>
-          <template v-for="c in get(`groupIndex${ucFirst(sort)}`)">
-            <div
-              :set="(theseHits = get(`groups${ucFirst(sort)}`)[c])"
-              :key="`comp-subs-grouping-${sort}-${c}`"
-            >
-              <b-dropdown-divider :key="`comp-subs-grouping-${c}-divider`" />
-              <template v-for="(hit, index) in theseHits">
-                <b-dropdown-item
-                  @click.stop="goToHit(hit)"
-                  :class="{ current: hit === currentHit }"
-                  :key="`dropdown-line-${c}-${index}`"
-                >
-                  <SmallStar
-                    :item="hit"
-                    :saved="(hit) => hit.saved"
-                    :save="saveHit"
-                    :remove="removeSavedHit"
-                  />
-                  <img
-                    class="hit-thumb"
-                    :src="`//img.youtube.com/vi/${hit.video.youtube_id}/hqdefault.jpg`"
-                    :alt="hit.video.title"
-                    v-lazy-load
-                  />
-                  <span
-                    :key="`dropdown-line-${index}-annotate-${
-                      hit.video.subs_l2[Number(hit.lineIndex)].line
-                    }`"
-                  >
-                    <span>
-                      <span
-                        v-if="
-                          ['left', 'length'].includes(sort) && hit.lineIndex > 0
-                        "
-                        v-html="
-                          hit.video.subs_l2[Number(hit.lineIndex) - 1].line
-                        "
-                        style="margin-right: 0.5em; opacity: 0.5"
-                      ></span>
-                      <span
-                        v-html="
-                          highlightMultiple(
-                            hit.video.subs_l2[Number(hit.lineIndex)].line,
-                            terms.map((term) => term),
-                            level
-                          )
-                        "
-                      ></span>
-                      <span
-                        v-if="
-                          sort === 'right' &&
-                          hit.lineIndex < hit.video.subs_l2.length - 1
-                        "
-                        v-html="
-                          hit.video.subs_l2[Number(hit.lineIndex) + 1].line
-                        "
-                        style="margin-left: 0.5em; opacity: 0.5"
-                      ></span>
-                    </span>
-                  </span>
-                </b-dropdown-item>
-              </template>
-            </div>
-          </template>
-        </b-dropdown>
+          <i class="fa fa-stream" />
+        </b-button>
         <router-link
           v-if="currentHit"
           :to="`/${$l1.code}/${$l2.code}/youtube/view/${
@@ -263,42 +164,114 @@
       :autoplay="navigated"
       :showLineList="false"
     />
-    <!-- <VueSlickCarousel
-      v-if="hits && hits.length > 0"
-      :arrows="false"
-      :dots="false"
-      lazyLoad="ondemand"
-      ref="carousel"
-      @afterChange="vueSlickCarouselAfterChange"
+    <b-modal
+      ref="playlist-modal"
+      centered
+      hide-footer
+      title="Video Caption Search Results"
+      body-class="playlist-modal-wrapper"
     >
-      <div
-        v-for="slide in [0, 1, 2]"
-        :set1="(index = hitIndexFromSlideIndex(slide))"
-        :key="`test-div-${slide}`"
-      >
-        <div
-          :class="`test-div test-div-${slide}`"
-        >
-          {{ slide }}
-          <br />
-          Hit {{ index + 1 }}
+      <div class="playlist-modal">
+        <div class="pt-3 pl-3 pr-3">
+          <button
+            :class="{
+              'btn btn-small': true,
+              'bg-dark': sort === 'length',
+              'text-white': sort === 'length',
+            }"
+            @click.stop.prevent="sort = 'length'"
+          >
+            Sort By Length
+          </button>
+          <button
+            :class="{
+              'btn btn-small': true,
+              'bg-dark': sort === 'left',
+              'text-white': sort === 'left',
+            }"
+            @click.stop.prevent="sort = 'left'"
+          >
+            Sort Left
+          </button>
+          <button
+            :class="{
+              'btn btn-small': true,
+              'bg-dark': sort === 'right',
+              'text-white': sort === 'right',
+            }"
+            @click.stop.prevent="sort = 'right'"
+          >
+            Sort Right
+          </button>
         </div>
-
-        <YouTubeWithTranscript
-          :video="hits[index].video"
-          :ref="`youtube-${index}`"
-          initialLayout="vertical"
-          :highlight="terms"
-          :hsk="level"
-          :speed="speed"
-          :startLineIndex="startLineIndex(hits[index])"
-          :showFullscreenToggle="false"
-          @paused="hitIndex ===  index ? updatePaused(...arguments) : false"
-          :key="`slide-${slide}-hit-${index}`"
-          :autoload="iOS()"
-        />
+        <template v-for="c in get(`groupIndex${ucFirst(sort)}`)">
+          <div
+            :set="(theseHits = get(`groups${ucFirst(sort)}`)[c])"
+            :key="`comp-subs-grouping-${sort}-${c}`"
+          >
+            <hr
+              :key="`comp-subs-grouping-${c}-divider`"
+              v-if="theseHits && theseHits.length > 0"
+            />
+            <template v-for="(hit, index) in theseHits">
+              <div
+                @click.stop="goToHit(hit)"
+                :class="{
+                  current: hit === currentHit,
+                  'playlist-modal-item': true,
+                }"
+                :key="`dropdown-line-${c}-${index}`"
+              >
+                <SmallStar
+                  :item="hit"
+                  :saved="(hit) => hit.saved"
+                  :save="saveHit"
+                  :remove="removeSavedHit"
+                />
+                <img
+                  class="hit-thumb"
+                  :src="`//img.youtube.com/vi/${hit.video.youtube_id}/hqdefault.jpg`"
+                  :alt="hit.video.title"
+                  v-lazy-load
+                />
+                <span
+                  :key="`dropdown-line-${index}-annotate-${
+                    hit.video.subs_l2[Number(hit.lineIndex)].line
+                  }`"
+                >
+                  <span>
+                    <span
+                      v-if="
+                        ['left', 'length'].includes(sort) && hit.lineIndex > 0
+                      "
+                      v-html="hit.video.subs_l2[Number(hit.lineIndex) - 1].line"
+                      style="margin-right: 0.5em; opacity: 0.5"
+                    ></span>
+                    <span
+                      v-html="
+                        highlightMultiple(
+                          hit.video.subs_l2[Number(hit.lineIndex)].line,
+                          terms.map((term) => term),
+                          level
+                        )
+                      "
+                    ></span>
+                    <span
+                      v-if="
+                        sort === 'right' &&
+                        hit.lineIndex < hit.video.subs_l2.length - 1
+                      "
+                      v-html="hit.video.subs_l2[Number(hit.lineIndex) + 1].line"
+                      style="margin-left: 0.5em; opacity: 0.5"
+                    ></span>
+                  </span>
+                </span>
+              </div>
+            </template>
+          </div>
+        </template>
       </div>
-    </VueSlickCarousel> -->
+    </b-modal>
   </div>
 </template>
 
@@ -468,6 +441,9 @@ export default {
     },
   },
   methods: {
+    showPlaylistModal() {
+      this.$refs["playlist-modal"].show();
+    },
     hitIndexFromSlideIndex(slideIndex) {
       let currentSlideIndex = this.slideIndex;
       let s;
@@ -741,6 +717,7 @@ export default {
     goToHit(hit) {
       this.currentHit = hit;
       this.navigated = true;
+      this.$refs["playlist-modal"].hide();
       setTimeout(() => {
         document.activeElement.blur();
       }, 100);
@@ -752,16 +729,20 @@ export default {
       this.navigated = true;
     },
     seekYouTube(starttime) {
-      this.$refs[`youtube-${this.hitIndex}`].seek(starttime);
+      let youtube = this.$refs[`youtube-${this.hitIndex}`];
+      if (youtube) this.$refs[`youtube-${this.hitIndex}`].seek(starttime);
     },
     pauseYouTube() {
-      this.$refs[`youtube-${this.hitIndex}`].pause();
+      let youtube = this.$refs[`youtube-${this.hitIndex}`];
+      if (youtube) this.$refs[`youtube-${this.hitIndex}`].pause();
     },
     playYouTube() {
-      this.$refs[`youtube-${this.hitIndex}`].play();
+      let youtube = this.$refs[`youtube-${this.hitIndex}`];
+      if (youtube) this.$refs[`youtube-${this.hitIndex}`].play();
     },
     togglePaused() {
-      this.$refs[`youtube-${this.hitIndex}`].togglePaused();
+      let youtube = this.$refs[`youtube-${this.hitIndex}`];
+      if (youtube) this.$refs[`youtube-${this.hitIndex}`].togglePaused();
     },
     toggleFullscreen() {
       if (this.hits.length > 0) this.fullscreen = !this.fullscreen;
