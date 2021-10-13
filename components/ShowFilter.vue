@@ -20,30 +20,58 @@
       title="Search in ..."
       body-class="show-filter-modal"
     >
-      <b-form-checkbox v-model="musicChecked">Music</b-form-checkbox>
-      <b-form-checkbox v-model="newsChecked">News</b-form-checkbox>
-      <b-form-checkbox v-model="moviesChecked">Movies</b-form-checkbox>
-      <hr />
-      <div><b>TV Shows:</b></div>
-      <template v-if="tvShows">
-        <b-form-checkbox
-          v-for="(tvShow, index) in tvShowsFiltered"
-          :key="`tv-show-${tvShow.id}`"
-          v-model="tvShowChecked[index]"
-        >
-          {{ tvShow.title }}
+      <b-form-checkbox v-model="allVideosChecked">All Videos</b-form-checkbox>
+      <template v-if="!allVideosChecked">
+        <hr />
+        <b-form-checkbox v-if="musicShow" v-model="musicChecked">
+          Music
         </b-form-checkbox>
-      </template>
-      <hr />
-      <div><b>Talks:</b></div>
-      <template v-if="talks">
-        <b-form-checkbox
-          v-for="(talk, index) in talksFiltered"
-          :key="`talk-${talk.id}`"
-          v-model="talkChecked[index]"
-        >
-          {{ talk.title }}
+        <b-form-checkbox v-if="moviesShow" v-model="moviesChecked">
+          Movies
         </b-form-checkbox>
+        <b-form-checkbox v-if="newsShow" v-model="newsChecked">
+          News
+        </b-form-checkbox>
+        <template v-if="tvShows">
+          <hr />
+          <b-form-checkbox v-model="allTVShowsChecked">
+            All TV Shows
+          </b-form-checkbox>
+          <template v-if="!allTVShowsChecked">
+            <b-form-checkbox-group
+              id="tv-shows-checkbox-group"
+              v-model="tvShowChecked"
+            >
+              <b-form-checkbox
+                v-for="tvShow in tvShowsFiltered"
+                :key="`tv-show-${tvShow.id}`"
+                :value="tvShow.id"
+                class="d-block"
+              >
+                {{ tvShow.title }}
+              </b-form-checkbox>
+            </b-form-checkbox-group>
+          </template>
+        </template>
+        <template v-if="talks">
+          <hr />
+          <b-form-checkbox v-model="allTalksChecked">All Talks</b-form-checkbox>
+          <template v-if="!allTalksChecked">
+            <b-form-checkbox-group
+              id="tv-shows-checkbox-group"
+              v-model="talkChecked"
+            >
+              <b-form-checkbox
+                v-for="talk in talksFiltered"
+                :key="`tv-show-${talk.id}`"
+                :value="talk.id"
+                class="d-block"
+              >
+                {{ talk.title }}
+              </b-form-checkbox>
+            </b-form-checkbox-group>
+          </template>
+        </template>
       </template>
     </b-modal>
   </span>
@@ -58,6 +86,9 @@ export default {
       musicShow: undefined,
       moviesShow: undefined,
       newsShow: undefined,
+      allVideosChecked: true,
+      allTVShowsChecked: true,
+      allTalksChecked: true,
       tvShowFilter: "all",
       talkFilter: "all",
       musicChecked: true,
@@ -110,6 +141,15 @@ export default {
     });
   },
   watch: {
+    allVideosChecked() {
+      this.updateSettings();
+    },
+    allTVShowsChecked() {
+      this.updateSettings();
+    },
+    allTalksChecked() {
+      this.updateSettings();
+    },
     newsChecked() {
       this.updateSettings();
     },
@@ -140,6 +180,16 @@ export default {
       }
     },
     getTvShowFilter() {
+      if (this.allVideosChecked) return "all";
+      if (this.allTVShowsChecked) {
+        let all = true;
+        if (this.musicShow && !this.musicChecked) all = false;
+        if (this.moviesShow && !this.moviesChecked) all = false;
+        if (all) return "all";
+        else {
+          return this.tvShows.map((s) => s.id);
+        }
+      }
       let tvShowFilter = [];
       if (this.musicChecked) {
         if (this.musicShow) tvShowFilter.push(this.musicShow.id);
@@ -150,11 +200,20 @@ export default {
       return tvShowFilter;
     },
     getTalkFilter() {
-        let talkFilter = [];
-        if (this.newsChecked) {
-          if (this.newsShow) talkFilter.push(this.newsShow.id);
+      if (this.allVideosChecked) return "all";
+      if (this.allTalksChecked) {
+        let all = true;
+        if (this.newsShow && !this.newsChecked) all = false;
+        if (all) return "all";
+        else {
+          return this.talks.map((s) => s.id);
         }
-        return talkFilter;
+      }
+      let talkFilter = [];
+      if (this.newsChecked) {
+        if (this.newsShow) talkFilter.push(this.newsShow.id);
+      }
+      return talkFilter;
     },
     showModal() {
       this.$refs["show-filter-modal"].show();
@@ -172,20 +231,6 @@ export default {
       }
       if (this.talks) {
         this.newsShow = this.talks.find((s) => s.title === "News");
-      }
-      if (true) {
-        let tvShowChecked = [];
-        for (let show of this.tvShowsFiltered) {
-          tvShowChecked.push(true);
-        }
-        this.tvShowChecked = tvShowChecked;
-      }
-      if (true) {
-        let talkChecked = [];
-        for (let talk of this.talksFiltered) {
-          talkChecked.push(true);
-        }
-        this.talkChecked = talkChecked;
       }
     },
   },
