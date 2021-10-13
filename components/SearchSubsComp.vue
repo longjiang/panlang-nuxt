@@ -166,7 +166,7 @@
     />
     <b-modal
       ref="playlist-modal"
-      size="xl"
+      size="lg"
       centered
       hide-footer
       title="Video Caption Search Results"
