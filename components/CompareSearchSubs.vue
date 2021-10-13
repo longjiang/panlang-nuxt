@@ -82,9 +82,10 @@
         hide-footer
         title="Video Caption Search Results"
         body-class="playlist-modal-wrapper"
+        size="xl"
       >
         <div class="playlist-modal">
-          <div class="text-center">
+          <div class="text-center pt-3 pl-3 pr-3">
             <button
               :class="{
                 btn: true,
@@ -110,7 +111,7 @@
           </div>
           <template v-for="group in groups[sort]">
             <div v-if="group" :key="`compare-subs-grouping-${sort}-${group.c}`">
-              <hr :key="`comp-subs-grouping-${group.c}-divider`" />
+              <hr :key="`comp-subs-grouping-${group.c}-divider`" v-if="group.hits.A.length > 0 && group.hits.B.length > 0"/>
               <div
                 v-for="index in Math.max(
                   group.hits.A.length,
