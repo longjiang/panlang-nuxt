@@ -20,29 +20,31 @@
       title="Search in ..."
       body-class="show-filter-modal"
     >
-      <b-form-checkbox>All Videos</b-form-checkbox>
+      <b-form-checkbox v-model="allVideosChecked">All Videos</b-form-checkbox>
       <hr />
-      <b-form-checkbox>Music</b-form-checkbox>
-      <b-form-checkbox>News</b-form-checkbox>
-      <b-form-checkbox>Movies</b-form-checkbox>
+      <b-form-checkbox v-model="musicChecked">Music</b-form-checkbox>
+      <b-form-checkbox v-model="newsChecked">News</b-form-checkbox>
+      <b-form-checkbox v-model="moviesChecked">Movies</b-form-checkbox>
       <hr />
-      <b-form-checkbox>All TV Shows</b-form-checkbox>
+      <b-form-checkbox v-model="allTVShowsChecked">
+        All TV Shows
+      </b-form-checkbox>
       <template v-if="tvShows">
         <b-form-checkbox
-          v-for="tvShow in tvShows.filter(
-            (s) => !['Movies', 'Music'].includes(s.title)
-          )"
+          v-for="(tvShow, index) in tvShowsFiltered"
           :key="`tv-show-${tvShow.id}`"
+          v-model="tvShowChecked[index]"
         >
           {{ tvShow.title }}
         </b-form-checkbox>
       </template>
       <hr />
-      <b-form-checkbox>All Talks</b-form-checkbox>
+      <b-form-checkbox v-model="allTalksChecked">All Talks</b-form-checkbox>
       <template v-if="talks">
         <b-form-checkbox
-          v-for="talk in talks.filter((s) => !['News'].includes(s.title))"
+          v-for="(talk, index) in talksFiltered"
           :key="`talk-${talk.id}`"
+          v-model="talkChecked[index]"
         >
           {{ talk.title }}
         </b-form-checkbox>
@@ -56,6 +58,17 @@ export default {
   data() {
     return {
       tvShows: undefined,
+      talks: undefined,
+      tvShowFilter: false,
+      talkFilter: false,
+      allVideosChecked: true,
+      musicChecked: true,
+      newsChecked: true,
+      moviesChecked: true,
+      allTVShowsChecked: true,
+      allTalksChecked: true,
+      tvShowChecked: [],
+      talkChecked: [],
     };
   },
   computed: {
@@ -71,8 +84,27 @@ export default {
       if (typeof this.$store.state.settings.adminMode !== "undefined")
         return this.$store.state.settings.adminMode;
     },
+    tvShowsFiltered() {
+      if (this.tvShows)
+        return this.tvShows.filter(
+          (s) => !["Movies", "Music"].includes(s.title)
+        );
+    },
+    talksFiltered() {
+      if (this.talks) return this.talks.filter((s) => !["News"].includes(s.title));
+    },
   },
   mounted() {
+    if (typeof this.$store.state.settings !== "undefined") {
+      this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
+      this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+    }
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "settings/LOAD_SETTINGS") {
+        this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
+        this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+      }
+    });
     this.tvShows = this.$store.state.shows.tvShows[this.$l2.code]
       ? this.$store.state.shows.tvShows[this.$l2.code]
       : undefined;
