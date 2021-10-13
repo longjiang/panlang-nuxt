@@ -49,7 +49,8 @@
         >
           <div class="widget-title">
             “{{ entry.head }}” in
-            {{ tvShow ? `the TV Show "${tvShow.title}"` : "TV Shows" }}
+            <span v-if="tvShow">the TV Show “{{ tvShow.title }}”</span>
+            <LazyShowFilter v-else />
           </div>
           <div class="widget-body">
             <LazySearchSubsComp
