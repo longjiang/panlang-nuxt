@@ -51,22 +51,6 @@
           @blur="showFilter = false"
         />
         <span class="search-subs-hit-index ml-2 mr-2 d-inline-block">
-          <span
-            v-if="groupsRight['zthSaved'].length > 0"
-            class="ml-0 mr-0"
-            style="background: none"
-          >
-            {{ groupsRight["zthSaved"].length }}
-          </span>
-          <SmallStar
-            v-if="groupsRight['zthSaved'].length > 0"
-            :item="currentHit"
-            :saved="(hit) => hit.saved"
-            :save="saveHit"
-            :remove="removeSavedHit"
-            class="ml-0 mr-0"
-            style="position: relative; bottom: 0.1rem"
-          />
           {{ hitIndex + 1 }} of {{ hits.length }}
         </span>
         <b-button
@@ -101,6 +85,21 @@
           <i class="fas fa-step-forward" />
         </b-button>
         <div class="float-right mr-1">
+          <SmallStar
+            :item="currentHit"
+            :saved="(hit) => hit.saved"
+            :save="saveHit"
+            :remove="removeSavedHit"
+            class="ml-0 mr-0"
+            style="position: relative; bottom: -0.07em;"
+          />
+          <span
+            class="ml-1 mr-0"
+            style="background: none; position: relative; bottom: -0.07em; opacity: 0.7"
+            v-if="groupsRight['zthSaved'].length > 0"
+          >
+            {{ groupsRight["zthSaved"].length }}
+          </span>
           <b-button
             :variant="skin === 'light' ? 'gray' : 'ghost-dark-no-bg'"
             class="search-subs-fullscreen"
