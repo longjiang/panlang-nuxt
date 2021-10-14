@@ -526,14 +526,13 @@ export default {
       this.excludeTerms = excludeTerms.filter(
         (s) => s !== "" && !this.terms.includes(s)
       );
-      let hits = await YouTube.searchSubs(
-        this.terms,
-        this.excludeTerms,
-        this.$l2.code,
-        this.$l2.id,
-        this.$adminMode,
-        this.$l2.continua,
-        this.$subsSearchLimit
+      let hits = await YouTube.searchSubs({
+        terms: this.terms,
+        excludeTerms: this.excludeTerms,
+        langId: this.$l2.id,
+        adminMode: this.$adminMode,
+        continua: this.$l2.continua,
+        limit: this.$subsSearchLimit
           ? this.exact
             ? ["hy", "ka", "ko"].includes(this.$l2.code) // Give more room to less popular languages with alphebet-learning features (short words)
               ? this.terms[0].length < 5
@@ -546,11 +545,11 @@ export default {
               : 20
             : 10
           : false,
-        this.tvShow ? this.tvShow.id : undefined,
-        this.exact,
-        true, // apostrophe
-        this.$l2.han // convertToSimplified
-      );
+        limitToTVShow: this.tvShow ? this.tvShow.id : undefined,
+        exact: this.exact,
+        apostrophe: true,
+        convertToSimplified: this.$l2.han,
+      });
 
       hits = this.updateSaved(hits);
       this.collectContext(hits);
