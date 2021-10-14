@@ -19,6 +19,7 @@
       hide-footer
       title="Search in ..."
       body-class="show-filter-modal"
+      @hide="onModalHide"
     >
       <b-form-checkbox v-model="allVideosChecked">All Videos</b-form-checkbox>
       <template v-if="!allVideosChecked">
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import Helper from '@/lib/helper'
+import Helper from "@/lib/helper";
 
 export default {
   data() {
@@ -171,40 +172,45 @@ export default {
     },
   },
   methods: {
+    onModalHide() {
+      this.$emit("showFilter", {
+        tvShowFilter: this.tvShowFilter,
+        talkFilter: this.talkFilter,
+      });
+    },
     loadSettings() {
       this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
       this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
-      console.log('filters loaded: ', this.tvShowFilter, this.talkFilter)
       this.allVideosChecked =
         this.tvShowFilter === "all" && this.talkFilter === "all";
       if (!this.allVideosChecked) {
         this.allTVShowsChecked = this.tvShowFilter === "all";
         this.allTalksChecked = this.talkFilter === "all";
         if (!this.allTVShowsChecked) {
-          this.checkSpecials()
-          this.tvShowChecked = this.tvShowFilter
+          this.checkSpecials();
+          this.tvShowChecked = this.tvShowFilter;
         }
         if (!this.allTalksChecked) {
-          this.checkSpecials()
-          this.talkChecked = this.talkFilter
+          this.checkSpecials();
+          this.talkChecked = this.talkFilter;
         }
       }
     },
     checkSpecials() {
       if (this.musicShow) {
-        let musicId = Number(this.musicShow.id)
+        let musicId = Number(this.musicShow.id);
         this.musicChecked = this.tvShowFilter.includes(musicId);
-        this.tvShowChecked = this.tvShowChecked.filter(id => id !== musicId)
+        this.tvShowChecked = this.tvShowChecked.filter((id) => id !== musicId);
       }
       if (this.moviesShow) {
-        let moviesId = Number(this.moviesShow.id)
+        let moviesId = Number(this.moviesShow.id);
         this.moviesChecked = this.tvShowFilter.includes(moviesId);
-        this.tvShowChecked = this.tvShowChecked.filter(id => id !== moviesId)
+        this.tvShowChecked = this.tvShowChecked.filter((id) => id !== moviesId);
       }
       if (this.newsShow) {
-        let newsId = Number(this.moviesShow.id)
+        let newsId = Number(this.moviesShow.id);
         this.newsChecked = this.talkFilter.includes(Number(this.newsShow.id));
-        this.talkChecked = this.talkChecked.filter(id => id !== newsId)
+        this.talkChecked = this.talkChecked.filter((id) => id !== newsId);
       }
     },
     updateSettings() {
@@ -212,13 +218,11 @@ export default {
       let talkFilter = this.getTalkFilter();
 
       this.tvShowFilter = tvShowFilter;
-      console.log("Updating settings: tvShowFilter", tvShowFilter);
       this.$store.commit("settings/SET_L2_SETTINGS", {
         tvShowFilter: this.tvShowFilter,
       });
 
       this.talkFilter = talkFilter;
-      console.log("Updating settings: talkFilter", talkFilter);
       this.$store.commit("settings/SET_L2_SETTINGS", {
         talkFilter: this.talkFilter,
       });
@@ -276,7 +280,7 @@ export default {
       if (this.talks) {
         this.newsShow = this.talks.find((s) => s.title === "News");
       }
-      this.checkSpecials()
+      this.checkSpecials();
     },
   },
 };

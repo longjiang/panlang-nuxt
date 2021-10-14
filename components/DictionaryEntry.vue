@@ -50,7 +50,7 @@
           <div class="widget-title">
             “{{ entry.head }}” in
             <span v-if="tvShow">the TV Show “{{ tvShow.title }}”</span>
-            <LazyShowFilter v-else />
+            <LazyShowFilter v-else @showFilter="onShowFilter" />
           </div>
           <div class="widget-body">
             <LazySearchSubsComp
@@ -351,6 +351,9 @@ export default {
     this.searchTerms = await this.getSearchTerms();
   },
   methods: {
+    onShowFilter(showFilter) {
+      console.log('showFilter', showFilter)
+    },
     goToSection(index) {
       this.currentSection = index;
     },

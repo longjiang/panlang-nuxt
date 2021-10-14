@@ -329,6 +329,8 @@ export default {
       speed: 1,
       slideIndex: 0,
       sort: "length",
+      tvShowFilter: "all",
+      talkFilter: "all",
       youglishLang: {
         zh: "chinese",
         en: "english",
@@ -347,46 +349,6 @@ export default {
         tr: "turkish",
       },
     };
-  },
-  async mounted() {
-    this.checkHits();
-  },
-  activated() {
-    setTimeout(() => {
-      if (this.$refs[`youtube-${this.hitIndex}`])
-        this.$refs[`youtube-${this.hitIndex}`].pause();
-    }, 800);
-  },
-  destroyed() {
-    if (this.keyboard) this.unbindKeys();
-  },
-  unmounted() {
-    if (this.keyboard) this.unbindKeys();
-  },
-  deactivated() {
-    if (this.keyboard) this.unbindKeys();
-  },
-  updated() {
-    if (this.keyboard) this.unbindKeys();
-    if (this.keyboard) this.bindKeys();
-  },
-  watch: {
-    regex() {
-      if (!this.unfilteredHits) this.unfilteredHits = this.hits;
-      let r =
-        this.regex.startsWith("!") || this.regex.startsWith("！")
-          ? `^((?!${this.regex.substr(1).replace(/[,，]/gi, "|")}).)*$`
-          : this.regex;
-      let hits = [];
-      for (let hit of this.unfilteredHits) {
-        let regex = new RegExp(r, "gim");
-        if (regex.test(hit.video.subs_l2[hit.lineIndex].line)) {
-          hits.push(hit);
-        }
-      }
-      this.collectContext(hits);
-      this.$emit("updated", hits);
-    },
   },
   computed: {
     $l1() {
@@ -441,7 +403,62 @@ export default {
       return startLineIndex;
     },
   },
+  watch: {
+    regex() {
+      if (!this.unfilteredHits) this.unfilteredHits = this.hits;
+      let r =
+        this.regex.startsWith("!") || this.regex.startsWith("！")
+          ? `^((?!${this.regex.substr(1).replace(/[,，]/gi, "|")}).)*$`
+          : this.regex;
+      let hits = [];
+      for (let hit of this.unfilteredHits) {
+        let regex = new RegExp(r, "gim");
+        if (regex.test(hit.video.subs_l2[hit.lineIndex].line)) {
+          hits.push(hit);
+        }
+      }
+      this.collectContext(hits);
+      this.$emit("updated", hits);
+    },
+  },
+  async mounted() {
+    if (typeof this.$store.state.settings !== "undefined") {
+      this.loadSettings();
+    }
+    this.unsubscribeSettings = this.$store.subscribe((mutation, state) => {
+      if (mutation.type === "settings/LOAD_SETTINGS") {
+        this.loadSettings();
+      }
+    });
+    this.checkHits();
+  },
+  activated() {
+    setTimeout(() => {
+      if (this.$refs[`youtube-${this.hitIndex}`])
+        this.$refs[`youtube-${this.hitIndex}`].pause();
+    }, 800);
+  },
+  beforeDestroy() {
+    this.unsubscribeSettings();
+  },
+  destroyed() {
+    if (this.keyboard) this.unbindKeys();
+  },
+  unmounted() {
+    if (this.keyboard) this.unbindKeys();
+  },
+  deactivated() {
+    if (this.keyboard) this.unbindKeys();
+  },
+  updated() {
+    if (this.keyboard) this.unbindKeys();
+    if (this.keyboard) this.bindKeys();
+  },
   methods: {
+    loadSettings() {
+      this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
+      this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
+    },
     showPlaylistModal() {
       this.$refs["playlist-modal"].show();
     },
