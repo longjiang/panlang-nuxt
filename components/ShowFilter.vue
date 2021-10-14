@@ -37,6 +37,22 @@
           <hr />
           <b-form-checkbox v-model="allTVShowsChecked">
             All TV Shows
+            <template v-if="!allTVShowsChecked">
+              <a
+                class="ml-2 quick-link"
+                @click.stop.prevent="checkAll('tvShows')"
+                v-if="tvShowChecked.length < tvShowsFiltered.length"
+              >
+                Check All
+              </a>
+              <a
+                class="ml-2 quick-link"
+                v-if="tvShowChecked.length > 0"
+                @click.stop.prevent="uncheckAll('tvShows')"
+              >
+                Uncheck All
+              </a>
+            </template>
           </b-form-checkbox>
           <template v-if="!allTVShowsChecked">
             <b-form-checkbox-group
@@ -56,7 +72,25 @@
         </template>
         <template v-if="talks">
           <hr />
-          <b-form-checkbox v-model="allTalksChecked">All Talks</b-form-checkbox>
+          <b-form-checkbox v-model="allTalksChecked">
+            All Talks
+            <template v-if="!allTalksChecked">
+              <a
+                class="ml-2 quick-link"
+                @click.stop.prevent="checkAll('talks')"
+                v-if="talkChecked.length < talksFiltered.length"
+              >
+                Check All
+              </a>
+              <a
+                class="ml-2 quick-link"
+                v-if="talkChecked.length > 0"
+                @click.stop.prevent="uncheckAll('talks')"
+              >
+                Uncheck All
+              </a>
+            </template>
+          </b-form-checkbox>
           <template v-if="!allTalksChecked">
             <b-form-checkbox-group
               id="tv-shows-checkbox-group"
@@ -99,6 +133,8 @@ export default {
       moviesChecked: false,
       tvShowChecked: [],
       talkChecked: [],
+      allTVShows: [],
+      allTalks: [],
     };
   },
   computed: {
@@ -172,6 +208,26 @@ export default {
     },
   },
   methods: {
+    checkAll(type) {
+      if (type === "tvShows") {
+        this.tvShowChecked = this.tvShows
+          .filter((s) => !["Movies", "Music"].includes(s.title))
+          .map((s) => Number(s.id));
+      }
+      if (type === "talks") {
+        this.talkChecked = this.talks
+          .filter((s) => !["News"].includes(s.title))
+          .map((s) => Number(s.id));
+      }
+    },
+    uncheckAll(type) {
+      if (type === "tvShows") {
+        this.tvShowChecked = [];
+      }
+      if (type === "talks") {
+        this.talkChecked = [];
+      }
+    },
     onModalHide() {
       this.$emit("showFilter", {
         tvShowFilter: this.tvShowFilter,
@@ -187,15 +243,18 @@ export default {
         this.allTVShowsChecked = this.tvShowFilter === "all";
         this.allTalksChecked = this.talkFilter === "all";
         if (!this.allTVShowsChecked) {
-          this.checkSpecials();
           this.tvShowChecked = this.tvShowFilter;
+          this.checkSpecials();
         }
         if (!this.allTalksChecked) {
-          this.checkSpecials();
           this.talkChecked = this.talkFilter;
+          this.checkSpecials();
         }
       }
     },
+    /**
+     * Check if there are special shows like 'music', 'movies' or 'news'. If there are, we tick the checkboxes accordingly.
+     */
     checkSpecials() {
       if (this.musicShow) {
         let musicId = Number(this.musicShow.id);
@@ -286,5 +345,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.quick-link {
+  text-decoration: underline;
+  font-size: 0.8em;
+  cursor: pointer;
+  position: relative;
+  bottom: 0.05rem;
+}
 </style>

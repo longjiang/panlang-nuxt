@@ -54,7 +54,7 @@
           </div>
           <div class="widget-body">
             <LazySearchSubsComp
-              v-if="searchTerms"
+              v-if="searchTerms && renderSearchSubs"
               ref="searchSubs"
               skin="dark"
               :level="
@@ -289,6 +289,7 @@ export default {
       relatedReady: false,
       concordanceReady: false,
       searchSubsReady: false,
+      renderSearchSubs: true,
       currentSection: 0,
     };
   },
@@ -351,8 +352,14 @@ export default {
     this.searchTerms = await this.getSearchTerms();
   },
   methods: {
-    onShowFilter(showFilter) {
-      console.log('showFilter', showFilter)
+    onShowFilter() {
+      this.reloadSearchSubs();
+    },
+    reloadSearchSubs() {
+      this.renderSearchSubs = false;
+      this.$nextTick(() => {
+        this.renderSearchSubs = true;
+      });
     },
     goToSection(index) {
       this.currentSection = index;

@@ -329,7 +329,7 @@ export default {
       speed: 1,
       slideIndex: 0,
       sort: "length",
-      tvShowFilter: "all",
+      tvShowFilter: this.tvShow ? [this.tvShow.id] : "all",
       talkFilter: "all",
       youglishLang: {
         zh: "chinese",
@@ -456,7 +456,9 @@ export default {
   },
   methods: {
     loadSettings() {
-      this.tvShowFilter = this.$store.state.settings.l2Settings.tvShowFilter;
+      this.tvShowFilter = this.tvShow
+        ? [this.tvShow.id]
+        : this.$store.state.settings.l2Settings.tvShowFilter;
       this.talkFilter = this.$store.state.settings.l2Settings.talkFilter;
     },
     showPlaylistModal() {
@@ -545,7 +547,8 @@ export default {
               : 20
             : 10
           : false,
-        limitToTVShow: this.tvShow ? this.tvShow.id : undefined,
+        tvShowFilter: this.tvShowFilter,
+        talkFilter: this.talkFilter,
         exact: this.exact,
         apostrophe: true,
         convertToSimplified: this.$l2.han,
