@@ -161,19 +161,23 @@ export default {
         return this.talks.filter((s) => !["News"].includes(s.title));
     },
     title() {
-      let titles = []
-      if (this.allVideosChecked) titles.push("All Videos")
-      if (this.allTVShowsChecked) titles.push("All TV Shows")
-      if (this.musicChecked) titles.push('Music')
-      if (this.moviesChecked) titles.push('Movies')
-      if (this.tvShowChecked && this.tvShowChecked.length > 0) titles.push(`${this.tvShowChecked.length} TV Show(s)`)
-      if (this.newsChecked) titles.push('News')
-      if (this.allTalksChecked) titles.push("All Talks")
-      if (this.talkChecked && this.talkChecked.length > 0) titles.push(`${this.talkChecked.length} Talk(s)`)
-      if (titles.length > 1) return titles[0] + ' & Other Videos'
-      if (titles.length === 1) return titles[0]
-      if (titles.length === 0) return 'Videos'
-    }
+      let titles = [];
+      if (this.allVideosChecked) titles.push("All Videos");
+      else {
+        if (this.allTVShowsChecked) titles.push("All TV Shows");
+        else if (this.tvShowChecked && this.tvShowChecked.length > 0)
+          titles.push(`${this.tvShowChecked.length} TV Show(s)`);
+        if (this.musicChecked) titles.push("Music");
+        if (this.moviesChecked) titles.push("Movies");
+        if (this.newsChecked) titles.push("News");
+        if (this.allTalksChecked) titles.push("All Talks");
+        else if (this.talkChecked && this.talkChecked.length > 0)
+          titles.push(`${this.talkChecked.length} Talk(s)`);
+      }
+      if (titles.length > 1) return titles[0] + " & Other Videos";
+      if (titles.length === 1) return titles[0];
+      if (titles.length === 0) return "Videos";
+    },
   },
   mounted() {
     if (typeof this.$store.state.settings !== "undefined") {
@@ -257,12 +261,12 @@ export default {
         this.allTVShowsChecked = this.tvShowFilter === "all";
         this.allTalksChecked = this.talkFilter === "all";
         if (!this.allTVShowsChecked) {
-          this.tvShowChecked = this.tvShowFilter;
           this.checkSpecials();
+          this.tvShowChecked = this.tvShowFilter;
         }
         if (!this.allTalksChecked) {
-          this.talkChecked = this.talkFilter;
           this.checkSpecials();
+          this.talkChecked = this.talkFilter;
         }
       }
     },
