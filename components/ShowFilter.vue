@@ -21,22 +21,32 @@
       body-class="show-filter-modal"
       @hide="onModalHide"
     >
-      <b-form-checkbox v-model="allVideosChecked">All Videos</b-form-checkbox>
+      <b-form-checkbox v-model="allVideosChecked">
+        <i class="fa fa-play"></i>
+        <b>All Videos</b>
+      </b-form-checkbox>
       <template v-if="!allVideosChecked">
         <hr />
         <b-form-checkbox v-if="musicShow" v-model="musicChecked">
-          Music
+          <i class="fa fa-music"></i>
+          <b>Music</b>
         </b-form-checkbox>
         <b-form-checkbox v-if="moviesShow" v-model="moviesChecked">
-          Movies
+          <i class="fa fa-film"></i>
+          <b>Movies</b>
         </b-form-checkbox>
         <b-form-checkbox v-if="newsShow" v-model="newsChecked">
-          News
+          <i class="fa fa-newspaper"></i>
+          <b>News</b>
         </b-form-checkbox>
         <template v-if="tvShows">
           <hr />
-          <b-form-checkbox v-model="allTVShowsChecked">
-            All TV Shows
+          <b-form-checkbox
+            v-model="allTVShowsChecked"
+            :class="{ 'mb-2': !allTVShowsChecked }"
+          >
+            <i class="fa fa-tv"></i>
+            <b>All TV Shows</b>
             <template v-if="!allTVShowsChecked">
               <a
                 class="ml-2 quick-link"
@@ -63,8 +73,13 @@
                 v-for="tvShow in tvShowsFiltered"
                 :key="`tv-show-${tvShow.id}`"
                 :value="tvShow.id"
-                class="d-block"
+                class="d-block mb-1"
               >
+                <img
+                  class="show-thumb"
+                  :src="`//img.youtube.com/vi/${tvShow.youtube_id}/hqdefault.jpg`"
+                  v-lazy-load
+                />
                 {{ tvShow.title }}
               </b-form-checkbox>
             </b-form-checkbox-group>
@@ -72,8 +87,12 @@
         </template>
         <template v-if="talks">
           <hr />
-          <b-form-checkbox v-model="allTalksChecked">
-            All Talks
+          <b-form-checkbox
+            v-model="allTalksChecked"
+            :class="{ 'mb-2': !allTalksChecked }"
+          >
+            <i class="fas fa-graduation-cap"></i>
+            <b>All Talks</b>
             <template v-if="!allTalksChecked">
               <a
                 class="ml-2 quick-link"
@@ -100,8 +119,13 @@
                 v-for="talk in talksFiltered"
                 :key="`tv-show-${talk.id}`"
                 :value="talk.id"
-                class="d-block"
+                class="d-block mb-1"
               >
+                <img
+                  class="show-thumb"
+                  :src="`//img.youtube.com/vi/${talk.youtube_id}/hqdefault.jpg`"
+                  v-lazy-load
+                />
                 {{ talk.title }}
               </b-form-checkbox>
             </b-form-checkbox-group>
@@ -370,5 +394,20 @@ export default {
   cursor: pointer;
   position: relative;
   bottom: 0.05rem;
+}
+.show-filter-modal {
+  .fa,
+  .fas {
+    width: calc(0.2rem * 16);
+    height: calc(0.2rem * 9);
+    margin-right: 0.5rem;
+    text-align: center;
+  }
+  .show-thumb {
+    width: calc(0.2rem * 16);
+    height: calc(0.2rem * 9);
+    object-fit: cover;
+    margin-right: 0.5rem;
+  }
 }
 </style>
