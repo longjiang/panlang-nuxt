@@ -45,12 +45,12 @@
           <span v-if="word.pronunciation" class="wordlist-item-pinyin">
             <span v-if="$l2.code !== 'zh'">/</span>
             <span v-else>(</span>
-            {{ word.pronunciation || word.kana }}
+            {{ word.pronunciation }}
             <span v-if="$l2.code !== 'zh'">/</span>
             <span v-else>)</span>
           </span>
           <span v-if="word.kana" class="wordlist-item-pinyin">
-            ({{ word.kana }})
+             ( {{ word.kana }}, {{ transliterate(word.kana) }} )
           </span>
           <span v-if="word.hanja" class="wordlist-item-byeonggi">
             {{ word.hanja }}
@@ -98,6 +98,7 @@
 </template>
 <script>
 import Helper from "@/lib/helper";
+import { transliterate as tr } from "transliteration";
 
 export default {
   data() {
@@ -179,6 +180,10 @@ export default {
     },
   },
   methods: {
+    transliterate(text) {
+      let transliteration = tr(text);
+      if (transliteration !== text) return tr(text);
+    },
     getUrl(word, index) {
       if (this.url) return this.url(word, index);
       else
