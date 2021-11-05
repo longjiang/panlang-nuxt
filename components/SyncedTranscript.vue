@@ -509,7 +509,6 @@ export default {
       let affectedLineNumbers = [];
       let forms = wordForms
         .filter((form) => form && form !== "-")
-        .map((f) => f.toLowerCase());
       forms = Helper.unique(forms);
       for (let form of forms.sort((a, b) => b.length - a.length)) {
         for (let lineIndex in this.lines) {
