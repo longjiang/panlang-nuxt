@@ -507,9 +507,8 @@ export default {
     async addReviewItemsForWord(word, wordForms, review) {
       let lineOffset = this.reviewLineOffset;
       let affectedLineNumbers = [];
-      let forms = wordForms
-        .filter((form) => form && form !== "-")
-      forms = Helper.unique(forms);
+      let forms = wordForms.filter((form) => form && form !== "-");
+      forms = Helper.uniqueIgnoreCase(forms);
       for (let form of forms.sort((a, b) => b.length - a.length)) {
         for (let lineIndex in this.lines) {
           if (this.reviewConditions(lineIndex, form, word)) {
