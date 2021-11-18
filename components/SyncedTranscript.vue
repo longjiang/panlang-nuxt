@@ -330,19 +330,25 @@ export default {
         this.$emit("updateTranslation", updatedLines);
       }
     },
+    /**
+     * Match parallel lines (translation lines) to L2 lines.
+     */
     matchParallelLines() {
       let matchedParallelLines = [];
       for (let lineIndex in this.lines) {
         lineIndex = Number(lineIndex);
         let line = this.lines[lineIndex];
         let nextLine = this.lines[lineIndex + 1];
+        // Assign parallel lines to this line if the parallel line starts before
         matchedParallelLines[lineIndex] = this.parallellines
-          .filter((l) => {
-            return (
-              l &&
-              l.starttime >= line.starttime &&
-              (!nextLine || l.starttime < nextLine.starttime)
-            );
+          .filter((parallelLine, parallelLineIndex) => {
+            if (!parallelLine) return false
+            let nextParallelLine = this.parallellines[parallelLineIndex + 1]
+            let medianTime = nextParallelLine ? (parallelLine.starttime + nextParallelLine.starttime) / 2 : parallelLine.starttime
+            if (medianTime >= line.starttime) {
+              if (!nextLine) return true
+              else return medianTime <= nextLine.starttime
+            }
           })
           .map((l) => l.line)
           .join(" ");
