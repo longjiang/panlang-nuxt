@@ -1,7 +1,13 @@
 <template>
   <component
     :is="tag"
-    v-observe-visibility="visibilityChanged"
+    v-observe-visibility="{
+      callback: visibilityChanged,
+      throttle: 300,
+      throttleOptions: {
+        leading: 'visible',
+      },
+    }"
     :dir="
       foreign &&
       $l2.scripts &&
@@ -331,17 +337,17 @@ export default {
       let html = text;
       if (this.$l2.continua) {
         html = await this.tokenizeContinua(text, batchId);
-      } else if ((this.$l2.scripts && this.$l2.scripts[0] && this.$l2.scripts[0].script === 'Arab') || (this.$l2.wiktionary && this.$l2.wiktionary < 2000)) {
+      } else if (
+        (this.$l2.scripts &&
+          this.$l2.scripts[0] &&
+          this.$l2.scripts[0].script === "Arab") ||
+        (this.$l2.wiktionary && this.$l2.wiktionary < 2000)
+      ) {
         html = await this.tokenizeIntegral(text);
       } else if (
-        this.$l2.agglutinative || this.$l2.indo ||
-        [
-          "de",
-          "no",
-          "en",
-          "hy",
-          "vi",
-        ].includes(this.$l2.code)
+        this.$l2.agglutinative ||
+        this.$l2.indo ||
+        ["de", "no", "en", "hy", "vi"].includes(this.$l2.code)
       ) {
         html = await this.tokenizeAgglutenative(text, batchId);
       } else {
