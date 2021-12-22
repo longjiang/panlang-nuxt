@@ -348,10 +348,10 @@ export default {
           show: this.hasFeature("youtube"),
           children: [
             {
-              name: "youtube-browse",
-              title: "New Videos",
-              icon: "fa fa-play",
-              show: true,
+              path: this.moviesPath,
+              icon: "fa fa-film",
+              title: `Movies`,
+              show: this.moviesPath,
             },
             {
               name: "tv-shows",
@@ -360,8 +360,10 @@ export default {
               show: this.hasTVShows,
             },
             {
-              name: "show",
-              show: false,
+              name: "talks",
+              icon: "fas fa-graduation-cap",
+              title: `Talks`,
+              show: this.hasTalks,
             },
             {
               path: this.musicPath,
@@ -370,22 +372,20 @@ export default {
               show: this.musicPath,
             },
             {
-              path: this.moviesPath,
-              icon: "fa fa-film",
-              title: `Movies`,
-              show: this.moviesPath,
-            },
-            {
               path: this.newsPath,
               icon: "fa fa-newspaper",
               title: `News`,
               show: this.newsPath,
             },
             {
-              name: "talks",
-              icon: "fas fa-graduation-cap",
-              title: `Talks`,
-              show: this.hasTalks,
+              name: "youtube-browse",
+              title: "Videos",
+              icon: "fa fa-play",
+              show: true,
+            },
+            {
+              name: "show",
+              show: false,
             },
             {
               name: "live-tv",
